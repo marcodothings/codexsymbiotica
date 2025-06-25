@@ -1,12 +1,3 @@
-
-<script>
-  var password = "codex";
-  var userInput = prompt("Enter password to access this page:");
-  if (userInput !== password) {
-    document.body.innerHTML = "<h1>Unauthorized</h1>";
-  }
-</script>
-
 <!-- /en/index.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +8,17 @@
   <title>Codex Symbiotica – English</title>
   <style>
     body { font-family: sans-serif; padding: 2em; line-height: 1.6; max-width: 600px; margin: auto; }
+
+
+<script>
+  var password = "codex";
+  var userInput = prompt("Enter password to access this page:");
+  if (userInput !== password) {
+    document.body.innerHTML = "<h1>Unauthorized</h1>";
+  }
+</script>
+
+    
     h1 { font-size: 2rem; }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
