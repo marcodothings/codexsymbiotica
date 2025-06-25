@@ -1,48 +1,45 @@
-<!-- /en/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Codex Symbiotica - A visionary novel by Marco de Salvo and AI Urkut exploring the human-machine alliance in a polarized world.">
-  <title>Codex Symbiotica – English</title>
+  <meta charset="UTF-8" />
+  <title>Codex Symbiotica – English Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
   <style>
-    body { font-family: sans-serif; padding: 2em; line-height: 1.6; max-width: 600px; margin: auto; }
-
-
-<script>
-    (function() {
-      const correctPassword = "codex";
-
-      const input = prompt("🔐 Private preview site — enter password:");
-      if (!input || input.trim() !== correctPassword) {
-        // Clear everything and show Access Denied message
-        document.write(`
-          <div style="font-family: sans-serif; text-align: center; margin-top: 20vh;">
-            <h1 style="color: crimson;">⛔ Access Denied</h1>
-            <p>You did not enter the correct password.</p>
-          </div>
-        `);
-        // Stop execution further
-        return;
-      }
-    })();
-  </script>
-    
-    h1 { font-size: 2rem; }
-    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    body { visibility: hidden; font-family: sans-serif; max-width: 600px; margin: 2em auto; line-height: 1.6; }
+    #access-denied {
+      display: none;
+      text-align: center;
+      margin-top: 20vh;
+      color: crimson;
+    }
   </style>
 </head>
 <body>
-  <h1>Codex Symbiotica</h1>
-  <p>A literary journey into the future of human–AI collaboration, ethics, and transformation. Written by Marco de Salvo and his AI co-author, Urkut.</p>
-  <p><a href="mailto:marco@codexsymbiotica.com?subject=Subscribe">Subscribe to our mailing list</a> for exclusive content and future updates.</p>
-
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Codex Symbiotica Trailer" frameborder="0" allowfullscreen></iframe>
+  <div id="access-denied">
+    <h1>⛔ Access Denied</h1>
+    <p>You did not enter the correct password.</p>
   </div>
 
-  <p><a href="/it/">Vai alla versione italiana</a></p>
+  <div id="content">
+    <h1>Codex Symbiotica</h1>
+    <p>A visionary novel by Marco de Salvo and AI Urkut exploring the human-machine alliance in a polarized world.</p>
+    <p><a href="mailto:marco@codexsymbiotica.com?subject=Subscribe">Subscribe to our mailing list</a> for exclusive content and updates.</p>
+    <p><a href="/it/">Go to Italian version</a></p>
+  </div>
+
+  <script>
+    (function() {
+      const correctPassword = "codex";
+      const input = prompt("🔐 Private preview site — enter password:");
+      if (input && input.trim() === correctPassword) {
+        document.body.style.visibility = "visible";
+      } else {
+        document.body.style.visibility = "visible";
+        document.getElementById("content").style.display = "none";
+        document.getElementById("access-denied").style.display = "block";
+      }
+    })();
+  </script>
 </body>
 </html>
