@@ -21,24 +21,19 @@
     <p>You did not enter the correct password.</p>
   </div>
 
-  <script>
-    (function() {
-      const correctPassword = "codex";
-      const input = prompt("🔐 Private preview site — enter password:");
-      if (input && input.trim() === correctPassword) {
-        document.body.style.visibility = "visible";
-        // Redirect based on browser language
-        const lang = navigator.language || navigator.userLanguage;
-        if (lang.startsWith("it")) {
-          window.location.href = "/it/";
-        } else {
-          window.location.href = "/en/";
-        }
-      } else {
-        document.body.style.visibility = "visible";
-        document.getElementById("access-denied").style.display = "block";
-      }
-    })();
-  </script>
+<script>
+  (function() {
+    const correctPassword = "codex";
+    const input = prompt("🔐 Private preview site — enter password:");
+    if (!input || input.trim() === "" || input.trim() !== correctPassword) {
+      document.body.style.visibility = "visible";
+      document.getElementById("content").style.display = "none";
+      document.getElementById("access-denied").style.display = "block";
+    } else {
+      document.body.style.visibility = "visible";
+    }
+  })();
+</script>
+  
 </body>
 </html>
