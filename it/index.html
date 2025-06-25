@@ -11,22 +11,20 @@
 
 <script>
     (function() {
-      const correctPassword = "codex"; // Change this to your secret
+      const correctPassword = "codex";
 
-      const validate = () => {
-        const input = prompt("🔐 This site is in private preview.\nPlease enter the password to continue:");
-        // Block if null, empty, or incorrect
-        if (!input || input.trim() !== correctPassword) {
-          document.body.innerHTML = `
-            <div style="font-family: sans-serif; text-align: center; margin-top: 20vh;">
-              <h1 style="color: crimson;">⛔ Access Denied</h1>
-              <p>You did not enter the correct password.</p>
-            </div>`;
-          throw new Error("Unauthorized access");
-        }
-      };
-
-      validate();
+      const input = prompt("🔐 Private preview site — enter password:");
+      if (!input || input.trim() !== correctPassword) {
+        // Clear everything and show Access Denied message
+        document.write(`
+          <div style="font-family: sans-serif; text-align: center; margin-top: 20vh;">
+            <h1 style="color: crimson;">⛔ Access Denied</h1>
+            <p>You did not enter the correct password.</p>
+          </div>
+        `);
+        // Stop execution further
+        return;
+      }
     })();
   </script>
     
