@@ -1,32 +1,44 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/en/">
-  <title>Codex Symbiotica</title>
+  <meta charset="UTF-8" />
+  <title>Codex Symbiotica — Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    body { visibility: hidden; font-family: sans-serif; }
+    #access-denied {
+      display: none;
+      text-align: center;
+      margin-top: 20vh;
+      color: crimson;
+    }
+  </style>
 </head>
 <body>
+  <div id="access-denied">
+    <h1>⛔ Access Denied</h1>
+    <p>You did not enter the correct password.</p>
+  </div>
 
-<script>
+  <script>
     (function() {
       const correctPassword = "codex";
-
       const input = prompt("🔐 Private preview site — enter password:");
-      if (!input || input.trim() !== correctPassword) {
-        // Clear everything and show Access Denied message
-        document.write(`
-          <div style="font-family: sans-serif; text-align: center; margin-top: 20vh;">
-            <h1 style="color: crimson;">⛔ Access Denied</h1>
-            <p>You did not enter the correct password.</p>
-          </div>
-        `);
-        // Stop execution further
-        return;
+      if (input && input.trim() === correctPassword) {
+        document.body.style.visibility = "visible";
+        // Redirect based on browser language
+        const lang = navigator.language || navigator.userLanguage;
+        if (lang.startsWith("it")) {
+          window.location.href = "/it/";
+        } else {
+          window.location.href = "/en/";
+        }
+      } else {
+        document.body.style.visibility = "visible";
+        document.getElementById("access-denied").style.display = "block";
       }
     })();
   </script>
-  
-  <p>If you are not redirected, <a href="/en/">click here</a>.</p>
 </body>
 </html>
