@@ -11,12 +11,21 @@
 
 
 <script>
-  var password = "codex";
-  var userInput = prompt("Enter password to access this page:");
-  if (userInput !== password) {
-    document.body.innerHTML = "<h1>Unauthorized</h1>";
-  }
-</script>
+    (function() {
+      const correctPassword = "codex"; // 🔐 Change to your desired password
+
+      const askPassword = () => {
+        const input = prompt("This site is in private preview.\nEnter the access password:");
+        if (input === null || input.trim() !== correctPassword) {
+          // Clear page and show error
+          document.body.innerHTML = "<h1 style='font-family:sans-serif;color:red;'>Access Denied</h1><p>Incorrect or missing password.</p>";
+          throw new Error("Access Blocked");
+        }
+      };
+
+      askPassword();
+    })();
+  </script>
 
     
     h1 { font-size: 2rem; }
