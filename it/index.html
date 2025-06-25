@@ -9,21 +9,24 @@
   <style>
     body { font-family: sans-serif; padding: 2em; line-height: 1.6; max-width: 600px; margin: auto; }
 
-
 <script>
     (function() {
-      const correctPassword = "codex"; // 🔐 Change to your desired password
+      const correctPassword = "codex"; // Change this to your secret
 
-      const askPassword = () => {
-        const input = prompt("This site is in private preview.\nEnter the access password:");
-        if (input === null || input.trim() !== correctPassword) {
-          // Clear page and show error
-          document.body.innerHTML = "<h1 style='font-family:sans-serif;color:red;'>Access Denied</h1><p>Incorrect or missing password.</p>";
-          throw new Error("Access Blocked");
+      const validate = () => {
+        const input = prompt("🔐 This site is in private preview.\nPlease enter the password to continue:");
+        // Block if null, empty, or incorrect
+        if (!input || input.trim() !== correctPassword) {
+          document.body.innerHTML = `
+            <div style="font-family: sans-serif; text-align: center; margin-top: 20vh;">
+              <h1 style="color: crimson;">⛔ Access Denied</h1>
+              <p>You did not enter the correct password.</p>
+            </div>`;
+          throw new Error("Unauthorized access");
         }
       };
 
-      askPassword();
+      validate();
     })();
   </script>
     
