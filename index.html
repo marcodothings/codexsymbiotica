@@ -64,23 +64,24 @@
       background-color: rgba(255, 255, 255, 0.2);
     }
 
- .background-anim {
+.background-anim {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
-  opacity: 0.3;
+  z-index: 0;
+  background: linear-gradient(135deg, rgba(15,32,39,0.8), rgba(32,58,67,0.8), rgba(44,83,100,0.8)),
+              url('https://www.transparenttextures.com/patterns/stardust.png');
+  background-size: cover;
+  background-repeat: repeat;
+  animation: scrollBG 60s linear infinite;
+  opacity: 0.2;
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes scrollBG {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 1000px; }
 }
 
 
