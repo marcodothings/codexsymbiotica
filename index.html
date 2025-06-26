@@ -1,151 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Codex Symbiotica</title>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Unbounded', sans-serif;
-      background-color: #0a0a0a;
-      color: gold;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05), transparent 70%), url('https://www.transparenttextures.com/patterns/circuit-board.png');
-      background-size: cover;
-      opacity: 0.1;
-      z-index: -1;
-    }
-
-    header {
-      text-align: center;
-      padding: 4rem 2rem 2rem;
-    }
-
-    h1 {
-      font-size: 3rem;
-      color: gold;
-      text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
-      animation: softGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes softGlow {
-      from {
-        text-shadow: 0 0 4px #FFD700, 0 0 8px #FFD700;
-      }
-      to {
-        text-shadow: 0 0 8px #FFD700, 0 0 16px #FFD700;
-      }
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .book-image {
-      max-width: 300px;
-      width: 100%;
-      margin: 2rem auto;
-      border: 2px solid gold;
-      box-shadow: 0 0 10px gold;
-    }
-
-    .description {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-
-    .btn {
-      background: transparent;
-      color: gold;
-      border: 2px solid gold;
-      padding: 0.8rem 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .btn:hover {
-      background: gold;
-      color: #0a0a0a;
-    }
-
-    .video-container {
-      margin: 3rem 0;
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #888;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Codex Symbiotica – Unlock the Future of Humanity and AI</title>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  /* CSS code here */
+</style>
 </head>
 <body>
-  <header>
-    <h1>Codex Symbiotica</h1>
-  </header>
+<canvas id="starfield"></canvas>
+<canvas id="circuitCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
-  <div class="container">
-    <img src="assets/codex-symbiotica-book.jpg" alt="Codex Symbiotica Cover" class="book-image" />
+<!-- Language toggle -->
+<div class="lang-toggle" role="tablist" aria-label="Language Switcher">
+  <button id="btn-en" class="active" role="tab" aria-selected="true" aria-controls="content-en" tabindex="0">EN</button>
+  <button id="btn-it" role="tab" aria-selected="false" aria-controls="content-it" tabindex="-1">IT</button>
+</div>
 
-    <p class="description">
-      A visionary journey into the heart of humanity’s evolving relationship with artificial intelligence. Written by Marco de Salvo and co-created with Urkut, this novel explores ethics, rebellion, and the silent codes that bind our future.
-    </p>
+<main class="container" role="main">
+  <!-- English and Italian sections here -->
+</main>
 
-    <a class="btn" href="https://www.amazon.com/dp/B0D1R3YJL6" target="_blank">Buy on Amazon</a>
+<script>
+  // Language toggle logic
+  const btnEN = document.getElementById('btn-en');
+  const btnIT = document.getElementById('btn-it');
+  const contentEN = document.getElementById('content-en');
+  const contentIT = document.getElementById('content-it');
 
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Codex Symbiotica Presentation" frameborder="0" allowfullscreen></iframe>
-    </div>
+  btnEN.addEventListener('click', () => {
+    btnEN.classList.add('active');
+    btnIT.classList.remove('active');
+    btnEN.setAttribute('aria-selected', 'true');
+    btnIT.setAttribute('aria-selected', 'false');
+    btnEN.setAttribute('tabindex', '0');
+    btnIT.setAttribute('tabindex', '-1');
+    contentEN.classList.add('active');
+    contentIT.classList.remove('active');
+  });
 
-    <!-- Begin MailerLite Embed -->
-    <div class="ml-form-embed"
-         data-account="YOUR_ACCOUNT_ID"
-         data-form="YOUR_FORM_ID"></div>
-    <script>
-      (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;
-      function f(){var c={ a:arguments,q:[]};var r=this.push(c);return"number"!=typeof r?r:f.bind(c.q);}
-      f.q=f.q||[];m[e]=m[e]||f.bind(f.q);
-      var s=a.createElement(i);var o=a.getElementsByTagName(i)[0];
-      s.async=1;s.src=l;o.parentNode.insertBefore(s,o);
-      })(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
-    </script>
-    <!-- End MailerLite Embed -->
-  </div>
+  btnIT.addEventListener('click', () => {
+    btnIT.classList.add('active');
+    btnEN.classList.remove('active');
+    btnIT.setAttribute('aria-selected', 'true');
+    btnEN.setAttribute('aria-selected', 'false');
+    btnIT.setAttribute('tabindex', '0');
+    btnEN.setAttribute('tabindex', '-1');
+    contentIT.classList.add('active');
+    contentEN.classList.remove('active');
+  });
 
-  <footer>
-    &copy; 2025 Marco de Salvo – Codex Symbiotica. All rights reserved.
-  </footer>
+  // Starfield animation on canvas
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let stars = [];
+
+  class Star {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 1.2 + 0.3;
+      this.speed = (Math.random() * 0.02) + 0.005;
+      this.opacity = Math.random() * 0.8 + 0.2;
+      this.twinkleSpeed = Math.random() * 0.02 + 0.01;
+      this.twinklePhase = Math.random() * Math.PI * 2;
+    }
+    update() {
+      this.y -= this.speed;
+      if (this.y < 0) this.y = height;
+      this.twinklePhase += this.twinkleSpeed;
+      this.opacity = 0.5 + 0.5 * Math.sin(this.twinklePhase);
+    }
+    draw(ctx) {
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity.toFixed(2)})`;
+      ctx.shadowColor = `rgba(212, 175, 55, ${this.opacity.toFixed(2)})`;
+      ctx.shadowBlur = 8;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function init() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width * devicePixelRatio;
+    canvas.height = height * devicePixelRatio;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+
+    stars = [];
+    let starCount = Math.floor(width / 2);
+    for (let i = 0; i < starCount; i++) {
+      stars.push(new Star());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    for (let star of stars) {
+      star.update();
+      star.draw(ctx);
+    }
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', () => {
+    init();
+  });
+
+  init();
+  animate();
+</script>
+
+<script>
+  const canvas2 = document.getElementById('circuitCanvas');
+  const ctx2 = canvas2.getContext('2d');
+  function resizeCanvas2(){canvas2.width=window.innerWidth;canvas2.height=window.innerHeight;}
+  window.addEventListener('resize', resizeCanvas2);resizeCanvas2();
+  const nodes=[];const nodeCount=100;const maxDist=120;
+  for(let i=0;i<nodeCount;i++){nodes.push({x:Math.random()*canvas2.width,y:Math.random()*canvas2.height,vx:(Math.random()-0.5)*0.7,vy:(Math.random()-0.5)*0.7,r:1+Math.random()*2});}
+  function animateCircuit(){ctx2.clearRect(0,0,canvas2.width,canvas2.height);
+    ctx2.strokeStyle='rgba(255,215,0,0.15)';
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<maxDist){ctx2.beginPath();ctx2.moveTo(a.x,a.y);ctx2.lineTo(b.x,b.y);ctx2.stroke();}}
+    ctx2.fillStyle='gold';nodes.forEach(n=>{ctx2.beginPath();ctx2.arc(n.x,n.y,n.r,0,Math.PI*2);ctx2.fill();n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>canvas2.width)n.vx*=-1;if(n.y<0||n.y>canvas2.height)n.vy*=-1;});
+    requestAnimationFrame(animateCircuit);
+  }
+  animateCircuit();
+</script>
 </body>
 </html>
