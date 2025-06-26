@@ -1,172 +1,171 @@
-<!-- Version 1.1 – Based on v1.0 + Transparent Container -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Codex Symbiotica</title>
   <style>
-    /* Reset and base styles */
+    /* --- Reset and Base Styles --- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: black;
+      color: #fff;
       overflow: hidden;
-      color: #f0f0f0;
     }
 
-    /* Canvas styling */
-    canvas {
+    /* --- Canvas Background --- */
+    canvas#circuitCanvas {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 0;
       width: 100%;
       height: 100%;
-      display: block;
+      z-index: -1;
     }
 
-    /* Main content container */
+    /* --- Main Container --- */
     .container {
-      position: relative;
-      z-index: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
-      background-color: rgba(0, 0, 0, 0.2); /* ✅ Transparent container */
-      backdrop-filter: blur(4px);
+      height: 100vh;
+      padding: 20px;
       text-align: center;
+      background-color: rgba(0, 0, 0, 0.4); /* Transparent background */
+      z-index: 1;
     }
 
     h1 {
       font-size: 3rem;
-      color: #FFD700;
       margin-bottom: 1rem;
     }
 
     p {
-      font-size: 1.2rem;
-      max-width: 600px;
+      max-width: 700px;
       margin-bottom: 2rem;
-      line-height: 1.6;
+      font-size: 1.2rem;
     }
 
-    a.button {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #FFD700;
-      color: #000;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #222;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
 
-    a.button:hover {
-      background-color: #e6c200;
+    button:hover {
+      background-color: #444;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
     }
   </style>
 </head>
-<body>
-  <canvas id="circuit-canvas"></canvas>
 
+<body>
+  <canvas id="circuitCanvas"></canvas>
   <div class="container">
     <h1>Codex Symbiotica</h1>
-    <p>
-      A visionary journey into the bond between minds and machines. Explore ethics, consciousness, and the dawn of a new alliance.
-    </p>
-    <a href="https://www.codexsymbiotica.com" class="button">Enter the Codex</a>
+    <p>A Manifesto for the Future of Human–AI Collaboration.</p>
+    <div>
+      <button onclick="window.location.href='https://www.amazon.com/dp/B0XYZ12345'">Buy Now</button>
+      <button onclick="document.getElementById('newsletter').scrollIntoView({behavior: 'smooth'})">Join Mailing List</button>
+      <button onclick="document.getElementById('faq').scrollIntoView({behavior: 'smooth'})">FAQ</button>
+    </div>
   </div>
 
+  <div id="newsletter" class="container">
+    <h2>Subscribe to our Mailing List</h2>
+    <form>
+      <input type="email" placeholder="Your email" required style="padding: 10px; width: 250px;" />
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <div id="faq" class="container">
+    <h2>FAQ</h2>
+    <p><strong>What is Codex Symbiotica?</strong><br>It is a visionary book exploring the ethical and existential alliance between humans and artificial intelligence.</p>
+  </div>
+
+  <footer>
+    &copy; 2025 Marco de Salvo. All rights reserved.
+  </footer>
+
   <script>
-    // Glowing circuit animation background
-    const canvas = document.getElementById('circuit-canvas');
+    // --- Circuit Animation (v1.1 feature) ---
+    const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
-
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const lines = [];
-    const maxLines = 120;
-
-    class Line {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.length = Math.random() * 100 + 20;
-        this.speed = Math.random() * 1 + 0.5;
-        this.angle = (Math.floor(Math.random() * 4) * Math.PI) / 2;
-        this.alpha = Math.random() * 0.3 + 0.2;
-        this.width = Math.random() * 2 + 0.5;
-      }
-
-      draw() {
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        const xEnd = this.x + Math.cos(this.angle) * this.length;
-        const yEnd = this.y + Math.sin(this.angle) * this.length;
-        ctx.lineTo(xEnd, yEnd);
-        ctx.strokeStyle = `rgba(255, 215, 0, ${this.alpha})`; // golden glow
-        ctx.lineWidth = this.width;
-        ctx.shadowColor = 'gold';
-        ctx.shadowBlur = 8;
-        ctx.stroke();
-        ctx.restore();
-
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-
-        if (
-          this.x < 0 || this.x > canvas.width ||
-          this.y < 0 || this.y > canvas.height
-        ) {
-          this.reset();
-        }
-      }
+    const nodes = [];
+    for (let i = 0; i < 100; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        dx: Math.random() * 0.5 - 0.25,
+        dy: Math.random() * 0.5 - 0.25
+      });
     }
 
-    for (let i = 0; i < maxLines; i++) {
-      lines.push(new Line());
-    }
-
-    function animate() {
+    function animateCircuit() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const line of lines) {
-        line.draw();
-      }
-      requestAnimationFrame(animate);
+      ctx.strokeStyle = 'rgba(255, 215, 0, 0.5)';
+      ctx.lineWidth = 0.3;
+
+      nodes.forEach((n, i) => {
+        n.x += n.dx;
+        n.y += n.dy;
+
+        if (n.x < 0 || n.x > canvas.width) n.dx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.6)';
+        ctx.fill();
+
+        for (let j = i + 1; j < nodes.length; j++) {
+          const m = nodes[j];
+          const dist = Math.hypot(n.x - m.x, n.y - m.y);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.stroke();
+          }
+        }
+      });
+      requestAnimationFrame(animateCircuit);
     }
 
-    animate();
+    animateCircuit();
   </script>
 </body>
+
 </html>
