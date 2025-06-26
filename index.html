@@ -3,154 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Codex Symbiotica – A visionary novel exploring the symbiosis between human and AI. Available now on Amazon in English and Italian editions." />
   <title>Codex Symbiotica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      color: gold;
-      background-color: #000020;
+      font-family: 'Roboto', sans-serif;
+      background: #000 url('assets/bg-ai-circuit.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffd700;
       overflow-x: hidden;
     }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 1rem;
+    header {
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 12px;
-      margin-top: 5vh;
+      padding: 60px 20px 20px;
     }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
     }
-
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-    }
-
-    .btn {
-      background-color: gold;
-      color: black;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin: 1rem 0.5rem;
-    }
-
-    iframe {
-      margin-top: 2rem;
-      width: 100%;
+    header p {
+      font-size: 1.2em;
       max-width: 700px;
-      height: 400px;
+      margin: 0 auto;
+    }
+    .btn {
+      display: inline-block;
+      background: #ffd700;
+      color: #000;
+      padding: 12px 24px;
+      margin-top: 20px;
+      font-weight: bold;
+      border-radius: 25px;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    iframe {
+      width: 90%;
+      max-width: 800px;
+      height: 450px;
       border: none;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
     }
-
-    .language-switcher {
-      margin-top: 2rem;
+    .newsletter {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px 20px;
+      border-top: 1px solid #ffd70033;
     }
-
-    .language-switcher a {
-      color: gold;
-      text-decoration: underline;
-      margin: 0 0.5rem;
-      cursor: pointer;
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.2em; }
+      iframe { height: 300px; }
     }
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
-
-  <script>
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    const numStars = 500;
-
-    function initStars() {
-      stars = [];
-      for (let i = 0; i < numStars; i++) {
-        stars.push({
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          radius: Math.random() * 1.5,
-          alpha: Math.random(),
-          speed: Math.random() * 0.2 + 0.05
-        });
-      }
-    }
-
-    function animateStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctx.fill();
-
-        star.alpha += (Math.random() - 0.5) * 0.05;
-        if (star.alpha < 0.1) star.alpha = 0.1;
-        if (star.alpha > 1) star.alpha = 1;
-      }
-      requestAnimationFrame(animateStars);
-    }
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initStars();
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    animateStars();
-  </script>
-
-  <div class="container">
+  <header>
     <h1>Codex Symbiotica</h1>
-    <p>A visionary journey exploring the alliance between human consciousness and artificial intelligence.</p>
-    <a href="https://www.amazon.com/dp/B0D1234567" class="btn" target="_blank">Buy on Amazon</a>
+    <p>A visionary journey into the evolving bond between humanity and artificial intelligence.</p>
+    <a href="https://www.amazon.com/dp/B0D2RWJZ3W" class="btn" target="_blank">Buy Now on Amazon</a>
+  </header>
 
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+  <section>
+    <h2>Book Presentation</h2>
+    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+  </section>
 
-    <p>Subscribe to receive updates, bonus material, and exclusive content:</p>
-    <form action="https://your-mailerlite-form-url.com" method="POST">
-      <input type="email" name="email" placeholder="Your email" required style="padding: 0.5rem; border-radius: 4px; border: none; margin-top: 1rem;" />
-      <button class="btn" type="submit">Subscribe</button>
-    </form>
-
-    <div class="language-switcher">
-      <p>Language: <a href="/en/index.html">English</a> | <a href="/it/index.html">Italiano</a></p>
+  <section>
+    <h2>Join Our Newsletter</h2>
+    <p>Stay updated on future volumes, events, and exclusive content.</p>
+    <div class="newsletter">
+      <!-- Replace with your MailerLite embed code -->
+      <iframe src="https://your-mailerlite-form-url" width="100%" height="350"></iframe>
     </div>
-  </div>
+  </section>
 
-  <script>
-    // Auto language redirect
-    const userLang = navigator.language || navigator.userLanguage;
-    if (window.location.pathname === "/" || window.location.pathname.endsWith("index.html")) {
-      if (userLang.startsWith('it')) {
-        window.location.replace("/it/index.html");
-      } else {
-        window.location.replace("/en/index.html");
-      }
-    }
-  </script>
+  <section>
+    <h2>Follow Codex Symbiotica</h2>
+    <p>
+      <a href="https://www.facebook.com/tramevolatili" class="btn" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/marcofacose/" class="btn" target="_blank">Instagram</a>
+      <a href="https://x.com/marcofollowing" class="btn" target="_blank">X</a>
+      <a href="https://www.youtube.com/@codexsymbiotica" class="btn" target="_blank">YouTube</a>
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2025 Marco de Salvo | Codex Symbiotica
+  </footer>
 </body>
 </html>
