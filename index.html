@@ -1,181 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow"> <!-- REMOVE THIS LINE WHEN READY FOR INDEXING -->
   <title>Codex Symbiotica</title>
-
-  <!-- Prevent indexing for now -->
-  <meta name="robots" content="noindex, nofollow" />
-
   <style>
-    /* Reset */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
     html, body {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       height: 100%;
       overflow: hidden;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #f0eade;
-      background: #0b1220;
-      position: relative;
+      background: black;
+      color: #f0f0f0;
     }
 
-    /* Canvas fills the screen */
-    #starfield {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      background-image: radial-gradient(white 1px, transparent 0);
+      background-size: 3px 3px;
+      animation: stars 60s linear infinite;
       z-index: 0;
-      background: radial-gradient(ellipse at center, #11141a 0%, #0b1220 70%);
     }
 
-    main {
+    @keyframes stars {
+      0% { background-position: 0 0; }
+      100% { background-position: 10000px 10000px; }
+    }
+
+    .container {
       position: relative;
-      z-index: 10;
-      height: 100vh;
+      z-index: 2;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 1rem;
-      user-select: none;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
     }
 
     h1 {
-      font-size: 3.2rem;
-      margin-bottom: 0.4rem;
-      font-weight: 700;
-      font-family: 'Cormorant Garamond', serif;
-      text-shadow: 0 0 10px rgba(240, 234, 222, 0.8);
+      font-size: 3em;
+      color: gold;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+      margin-bottom: 0.5em;
     }
 
     p {
-      font-size: 1.3rem;
+      font-size: 1.2em;
       max-width: 600px;
-      margin: 0 auto 2rem;
-      color: #f0eadecc;
-      font-weight: 500;
-      line-height: 1.4;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 2em;
     }
 
-    nav a {
-      display: inline-block;
-      margin: 0 1rem;
-      padding: 0.9rem 2.2rem;
-      border: 2px solid #f0eade;
+    .buttons {
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: transparent;
+      border: 2px solid gold;
+      color: gold;
+      padding: 0.8em 1.5em;
+      font-size: 1em;
       border-radius: 30px;
-      color: #f0eade;
-      font-weight: 600;
-      font-size: 1.1rem;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(240, 234, 222, 0.6);
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
     }
 
-    nav a:hover, nav a:focus {
-      background-color: #f0eade;
-      color: #111;
-      box-shadow: 0 0 20px #f0eade;
+    .btn:hover {
+      background: gold;
+      color: black;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 1);
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
+    @media screen and (max-width: 600px) {
       h1 {
-        font-size: 2.4rem;
+        font-size: 2em;
       }
       p {
-        font-size: 1rem;
-        max-width: 90%;
-      }
-      nav a {
-        margin: 0.5rem 0.7rem;
-        padding: 0.8rem 1.8rem;
-        font-size: 1rem;
+        font-size: 1em;
       }
     }
   </style>
 </head>
 <body>
-
-<canvas id="starfield"></canvas>
-
-<main>
-  <h1>Codex Symbiotica</h1>
-  <p>A visionary manifesto for the future — where human spirit and artificial intelligence converge.</p>
-  <nav>
-    <a href="/en/index.html" aria-label="Read Codex Symbiotica in English">Read in English</a>
-    <a href="/it/index.html" aria-label="Leggi Codex Symbiotica in Italiano">Leggi in Italiano</a>
-  </nav>
-</main>
-
-<script>
-  // Starfield animation on canvas - simple performant implementation
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-
-  let width, height;
-  let stars = [];
-
-  function init() {
-    resize();
-    stars = [];
-    const starCount = Math.floor(width * height / 3000);
-    for (let i = 0; i < starCount; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.2 + 0.3,
-        speed: Math.random() * 0.15 + 0.05,
-        opacity: Math.random() * 0.8 + 0.2,
-      });
-    }
-    requestAnimationFrame(animate);
-  }
-
-  function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width * devicePixelRatio;
-    canvas.height = height * devicePixelRatio;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(devicePixelRatio, devicePixelRatio);
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-
-    stars.forEach(star => {
-      star.y -= star.speed;
-      if (star.y < 0) {
-        star.y = height;
-        star.x = Math.random() * width;
-      }
-
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-      ctx.shadowColor = 'white';
-      ctx.shadowBlur = 6;
-      ctx.fill();
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener('resize', () => {
-    resize();
-  });
-
-  init();
-</script>
-
+  <div class="stars"></div>
+  <div class="container">
+    <h1>Codex Symbiotica</h1>
+    <p>A visionary exploration of the future bond between humans and artificial intelligence. Choose your language to begin the journey.</p>
+    <div class="buttons">
+      <a href="/en" class="btn">English Edition</a>
+      <a href="/it" class="btn">Versione Italiana</a>
+    </div>
+  </div>
 </body>
 </html>
