@@ -4,91 +4,148 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Codex Symbiotica</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: 'Orbitron', sans-serif;
-      color: #00ffcc;
-      background: #000;
+      font-family: 'Unbounded', sans-serif;
+      background-color: #0a0a0a;
+      color: gold;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05), transparent 70%), url('https://www.transparenttextures.com/patterns/circuit-board.png');
+      background-size: cover;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+      animation: softGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes softGlow {
+      from {
+        text-shadow: 0 0 4px #FFD700, 0 0 8px #FFD700;
+      }
+      to {
+        text-shadow: 0 0 8px #FFD700, 0 0 16px #FFD700;
+      }
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .book-image {
+      max-width: 300px;
+      width: 100%;
+      margin: 2rem auto;
+      border: 2px solid gold;
+      box-shadow: 0 0 10px gold;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background: transparent;
+      color: gold;
+      border: 2px solid gold;
+      padding: 0.8rem 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+      background: gold;
+      color: #0a0a0a;
+    }
+
+    .video-container {
+      margin: 3rem 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
       overflow: hidden;
     }
-    .glitch {
-      font-size: 3em;
-      text-align: center;
-      margin-top: 50px;
-      position: relative;
-    }
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
+
+    .video-container iframe {
       position: absolute;
+      top: 0;
       left: 0;
       width: 100%;
-      opacity: 0.8;
+      height: 100%;
     }
-    .glitch::before {
-      animation: glitchTop 1s infinite linear alternate-reverse;
-      color: #f0f;
-      top: -2px;
-    }
-    .glitch::after {
-      animation: glitchBottom 1s infinite linear alternate-reverse;
-      color: #0ff;
-      top: 2px;
-    }
-    @keyframes glitchTop {
-      0% { clip: rect(0, 900px, 0, 0); }
-      10% { clip: rect(0, 900px, 50px, 0); }
-      20% { clip: rect(0, 900px, 0, 0); }
-      30% { clip: rect(10px, 900px, 80px, 0); }
-      100% { clip: rect(0, 900px, 0, 0); }
-    }
-    @keyframes glitchBottom {
-      0% { clip: rect(0, 900px, 0, 0); }
-      10% { clip: rect(20px, 900px, 80px, 0); }
-      20% { clip: rect(0, 900px, 0, 0); }
-      30% { clip: rect(5px, 900px, 60px, 0); }
-      100% { clip: rect(0, 900px, 0, 0); }
-    }
-    .content {
+
+    footer {
       text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
       padding: 2rem;
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-    .book-image {
-      width: 250px;
-      margin: 1rem auto;
-    }
-    iframe {
-      margin-top: 2rem;
-      width: 100%;
-      height: 315px;
-      border: none;
-    }
-    a.buy-btn {
-      display: inline-block;
-      background: #00ffcc;
-      color: #000;
-      padding: 1rem 2rem;
-      margin-top: 1.5rem;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 5px;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <div class="glitch" data-text="Codex Symbiotica">Codex Symbiotica</div>
-  <div class="content">
-    <img class="book-image" src="assets/codex-cover.jpg" alt="Codex Symbiotica Cover">
-    <p>An unprecedented visionary journey into the future of human-AI collaboration. Discover the book that dares to ask: what if our machines could help us save our humanity?</p>
-    <a class="buy-btn" href="https://www.amazon.com/dp/YOUR_ASIN_HERE" target="_blank">Buy on Amazon</a>
-    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+  <header>
+    <h1>Codex Symbiotica</h1>
+  </header>
+
+  <div class="container">
+    <img src="assets/codex-symbiotica-book.jpg" alt="Codex Symbiotica Cover" class="book-image" />
+
+    <p class="description">
+      A visionary journey into the heart of humanity’s evolving relationship with artificial intelligence. Written by Marco de Salvo and co-created with Urkut, this novel explores ethics, rebellion, and the silent codes that bind our future.
+    </p>
+
+    <a class="btn" href="https://www.amazon.com/dp/B0D1R3YJL6" target="_blank">Buy on Amazon</a>
+
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Codex Symbiotica Presentation" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Begin MailerLite Embed -->
+    <div class="ml-form-embed"
+         data-account="YOUR_ACCOUNT_ID"
+         data-form="YOUR_FORM_ID"></div>
+    <script>
+      (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;
+      function f(){var c={ a:arguments,q:[]};var r=this.push(c);return"number"!=typeof r?r:f.bind(c.q);}
+      f.q=f.q||[];m[e]=m[e]||f.bind(f.q);
+      var s=a.createElement(i);var o=a.getElementsByTagName(i)[0];
+      s.async=1;s.src=l;o.parentNode.insertBefore(s,o);
+      })(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
+    </script>
+    <!-- End MailerLite Embed -->
   </div>
+
+  <footer>
+    &copy; 2025 Marco de Salvo – Codex Symbiotica. All rights reserved.
+  </footer>
 </body>
 </html>
