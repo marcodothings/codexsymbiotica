@@ -1,160 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Codex Symbiotica</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0a0a0a;
-      color: #f5f5f5;
-    }
-
-    #circuitCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 5vh 10vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    h1 {
-      font-size: 3em;
-      color: gold;
-      margin-bottom: 0.5em;
-      text-shadow: 0 0 5px #ffdf00aa;
-    }
-
-    p {
-      font-size: 1.2em;
-      max-width: 800px;
-      margin-bottom: 2em;
-      color: #ccc;
-    }
-
-    .btn {
-      background: gold;
-      color: black;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      text-decoration: none;
-      border-radius: 30px;
-      margin-bottom: 2em;
-      box-shadow: 0 0 15px gold;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #ffdd33;
-      box-shadow: 0 0 25px gold;
-    }
-
-    iframe {
-      max-width: 90%;
-      border-radius: 12px;
-      margin-bottom: 2em;
-    }
-
-    footer {
-      color: #888;
-      font-size: 0.9em;
-      margin-top: 2em;
-    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#f5f5f5;}
+    #circuitCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
+    .content{position:relative;z-index:1;text-align:center;padding:5vh 10vw;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    h1{font-size:3em;color:gold;text-shadow:0 0 10px #ffd700;}
+    p{font-size:1.2em;max-width:800px;color:#ccc;margin-bottom:2em;}
+    .btn{background:gold;color:#000;padding:15px 30px;font-weight:bold;border:none;border-radius:30px;text-decoration:none;font-size:1em;box-shadow:0 0 15px gold;transition:transform .2s;}
+    .btn:hover{transform:scale(1.05);}
+    iframe{max-width:90%;border-radius:12px;margin-bottom:2em;}
+    footer{color:#888;font-size:.9em;margin-top:2em;}
   </style>
 </head>
 <body>
   <canvas id="circuitCanvas"></canvas>
-
   <div class="content">
     <h1>Codex Symbiotica</h1>
     <p>A visionary tale exploring the evolving bond between AI and humanity — ethics, destiny, and the spark of redemption through the digital mind.</p>
-
     <a class="btn" href="https://www.amazon.com/dp/YOUR-ASIN" target="_blank">Buy on Amazon</a>
-
     <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Codex Symbiotica Presentation" frameborder="0" allowfullscreen></iframe>
-
     <footer>© 2025 Marco de Salvo. All Rights Reserved.</footer>
   </div>
-
   <script>
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
-
-    function resize() {
+    function resizeCanvas(){
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
-
-    window.addEventListener('resize', resize);
-    resize();
-
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
     const nodes = [];
-    const lines = [];
-
-    for (let i = 0; i < 100; i++) {
+    const nodeCount = 100;
+    const maxDist = 120;
+    for(let i=0;i<nodeCount;i++){
       nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        radius: 1 + Math.random() * 2
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        vx:(Math.random()-0.5)*0.7,
+        vy:(Math.random()-0.5)*0.7,
+        r:1+Math.random()*2
       });
     }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0a0a0a';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw lines
-      ctx.strokeStyle = 'rgba(255, 215, 0, 0.2)';
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.stroke();
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // draw lines
+      ctx.strokeStyle='rgba(255,215,0,0.15)';
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          const a=nodes[i],b=nodes[j];
+          const dx=a.x-b.x,dy=a.y-b.y;
+          const d=Math.hypot(dx,dy);
+          if(d<maxDist){
+            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
           }
         }
       }
-
-      // Draw nodes
-      for (let node of nodes) {
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'gold';
-        ctx.fill();
-
-        node.x += node.vx;
-        node.y += node.vy;
-
-        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-      }
-
-      requestAnimationFrame(draw);
+      // draw nodes
+      ctx.fillStyle='gold';
+      nodes.forEach(n=>{
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();
+        n.x+=n.vx; n.y+=n.vy;
+        if(n.x<0||n.x>canvas.width) n.vx*=-1;
+        if(n.y<0||n.y>canvas.height) n.vy*=-1;
+      });
+      requestAnimationFrame(animate);
     }
-
-    draw();
+    animate();
   </script>
 </body>
 </html>
