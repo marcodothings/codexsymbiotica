@@ -574,17 +574,13 @@
   </footer>
 </main>
 
-
 <script>
   // LANGUAGE TOGGLE - hidden buttons (kept for accessibility but not visible)
-  // You can still toggle programmatically if you want
-
   const btnEN = document.getElementById('btn-en');
   const btnIT = document.getElementById('btn-it');
   const contentEN = document.getElementById('content-en');
   const contentIT = document.getElementById('content-it');
 
-  // Hide buttons visually but keep in DOM
   btnEN.style.position = 'absolute';
   btnEN.style.width = '1px';
   btnEN.style.height = '1px';
@@ -603,7 +599,6 @@
   btnIT.style.clip = 'rect(0,0,0,0)';
   btnIT.style.border = '0';
 
-  // Default language: English active
   btnEN.classList.add('active');
   btnEN.setAttribute('aria-selected', 'true');
   btnEN.setAttribute('tabindex', '0');
@@ -612,7 +607,6 @@
   contentEN.classList.add('active');
   contentIT.classList.remove('active');
 
-  // Language toggle functions (can be called programmatically)
   function switchToEN() {
     btnEN.classList.add('active');
     btnIT.classList.remove('active');
@@ -633,22 +627,18 @@
     contentIT.classList.add('active');
     contentEN.classList.remove('active');
   }
-
-  // Optionally expose these functions globally for external calls:
   window.switchToEN = switchToEN;
   window.switchToIT = switchToIT;
 
-  // -- CIRCUIT ANIMATION --
+  // CIRCUIT ANIMATION (no grid lines)
 
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
   let width, height;
 
-  const gridSpacing = 50;  // distance between nodes
-  const lineWidth = 1.2;
-  const baseGlowColor = 'rgba(212, 175, 55, 0.6)';
-  const pulseColor = 'rgba(212, 175, 55, 1)';
+  const gridSpacing = 50;
   const nodeRadius = 3.5;
+  const pulseColor = 'rgba(212, 175, 55, 1)';
 
   let nodes = [];
   let pulses = [];
@@ -658,7 +648,7 @@
       this.startNode = startNode;
       this.endNode = endNode;
       this.speed = speed;
-      this.progress = Math.random(); // position along the line [0..1]
+      this.progress = Math.random();
     }
     update() {
       this.progress += this.speed;
@@ -724,51 +714,8 @@
     setupPulses();
   }
 
-  function drawGrid() {
-    ctx.clearRect(0, 0, width, height);
-    ctx.lineWidth = lineWidth;
-
-    ctx.shadowColor = 'rgba(212, 175, 55, 0.7)';
-    ctx.shadowBlur = 8;
-
-    // Horizontal lines
-    for (let y = 0; y <= height; y += gridSpacing) {
-      ctx.beginPath();
-      for (let x = 0; x <= width; x += gridSpacing) {
-        if (x === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      let grad = ctx.createLinearGradient(0, y, width, y);
-      grad.addColorStop(0, 'rgba(212, 175, 55, 0.1)');
-      grad.addColorStop(0.5, 'rgba(212, 175, 55, 0.6)');
-      grad.addColorStop(1, 'rgba(212, 175, 55, 0.1)');
-      ctx.strokeStyle = grad;
-      ctx.stroke();
-    }
-
-    // Vertical lines
-    for (let x = 0; x <= width; x += gridSpacing) {
-      ctx.beginPath();
-      for (let y = 0; y <= height; y += gridSpacing) {
-        if (y === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      let grad = ctx.createLinearGradient(x, 0, x, height);
-      grad.addColorStop(0, 'rgba(212, 175, 55, 0.1)');
-      grad.addColorStop(0.5, 'rgba(212, 175, 55, 0.6)');
-      grad.addColorStop(1, 'rgba(212, 175, 55, 0.1)');
-      ctx.strokeStyle = grad;
-      ctx.stroke();
-    }
-  }
-
   function drawNodes() {
+    ctx.clearRect(0, 0, width, height);
     for (let node of nodes) {
       node.glow += node.glowDir * 0.008;
       if (node.glow >= 1) node.glowDir = -1;
@@ -784,7 +731,6 @@
   }
 
   function animate() {
-    drawGrid();
     drawNodes();
     for (let pulse of pulses) {
       pulse.update();
