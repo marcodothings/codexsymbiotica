@@ -2,45 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Codex Symbiotica – English Preview</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Codex Symbiotica</title>
+
+  <!-- Prevent indexing during development (remove before publication) -->
+  <meta name="robots" content="noindex, nofollow">
+
   <style>
-    body { visibility: hidden; font-family: sans-serif; max-width: 600px; margin: 2em auto; line-height: 1.6; }
-    #access-denied {
-      display: none;
+    /* Reset & base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
       text-align: center;
-      margin-top: 20vh;
-      color: crimson;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 2rem 1rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    nav {
+      margin-top: 2rem;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 1rem;
+      padding: 0.8rem 1.5rem;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .background-anim {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.07;
+      animation: scrollBG 120s linear infinite;
+    }
+
+    @keyframes scrollBG {
+      0% { background-position: 0 0; }
+      100% { background-position: 10000px 10000px; }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      header p {
+        font-size: 1rem;
+        padding: 0 1rem;
+      }
+      nav a {
+        margin: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="access-denied">
-    <h1>⛔ Access Denied</h1>
-    <p>You did not enter the correct password.</p>
-  </div>
-
-  <div id="content">
+  <div class="background-anim"></div>
+  <header>
     <h1>Codex Symbiotica</h1>
-    <p>A visionary novel by Marco de Salvo and AI Urkut exploring the human-machine alliance in a polarized world.</p>
-    <p><a href="mailto:marco@codexsymbiotica.com?subject=Subscribe">Subscribe to our mailing list</a> for exclusive content and updates.</p>
-    <p><a href="/it/">Go to Italian version</a></p>
-  </div>
+    <p>A visionary journey through code, consciousness, and the future of human-AI harmony.</p>
+  </header>
 
- <script>
-  (function() {
-    const correctPassword = "codex";
-    const input = prompt("🔐 Private preview site — enter password:");
-    if (!input || input.trim() === "" || input.trim() !== correctPassword) {
-      document.body.style.visibility = "visible";
-      document.getElementById("content").style.display = "none";
-      document.getElementById("access-denied").style.display = "block";
-    } else {
-      document.body.style.visibility = "visible";
-    }
-  })();
-</script>
-  
+  <nav>
+    <a href="/en/index.html">Read in English</a>
+    <a href="/it/index.html">Leggi in Italiano</a>
+  </nav>
 </body>
 </html>
