@@ -1,106 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow"> <!-- REMOVE THIS LINE WHEN READY FOR INDEXING -->
-  <title>Codex Symbiotica</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: black;
-      color: #f0f0f0;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animated BG Test</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #f0eade;
+    background: linear-gradient(-45deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #FF6B6B);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    overflow-x: hidden;
+  }
 
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      background-image: radial-gradient(white 1px, transparent 0);
-      background-size: 3px 3px;
-      animation: stars 60s linear infinite;
-      z-index: 0;
-    }
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-    @keyframes stars {
-      0% { background-position: 0 0; }
-      100% { background-position: 10000px 10000px; }
-    }
+  main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.6);
-    }
+  h1 {
+    font-size: 3.2rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    text-shadow: 0 0 10px rgba(240, 234, 222, 0.7);
+  }
 
+  p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    color: #f0eadecc;
+    font-weight: 500;
+    line-height: 1.4;
+    text-shadow: 0 0 6px rgba(0,0,0,0.4);
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 0 1rem;
+    padding: 0.9rem 2.2rem;
+    border: 2px solid #f0eade;
+    border-radius: 30px;
+    color: #f0eade;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(240, 234, 222, 0.5);
+  }
+
+  nav a:hover, nav a:focus {
+    background-color: #f0eade;
+    color: #111;
+    box-shadow: 0 0 20px #f0eade;
+  }
+
+  @media (max-width: 600px) {
     h1 {
-      font-size: 3em;
-      color: gold;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-      margin-bottom: 0.5em;
+      font-size: 2.4rem;
     }
-
     p {
-      font-size: 1.2em;
-      max-width: 600px;
-      margin-bottom: 2em;
+      font-size: 1rem;
+      max-width: 90%;
     }
+    nav a {
+      margin: 0.5rem 0.7rem;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+    }
+  }
+</style>
 
-    .buttons {
-      display: flex;
-      gap: 1em;
-      flex-wrap: wrap;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
 
-    .btn {
-      background: transparent;
-      border: 2px solid gold;
-      color: gold;
-      padding: 0.8em 1.5em;
-      font-size: 1em;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-    }
-
-    .btn:hover {
-      background: gold;
-      color: black;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 1);
-    }
-
-    @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
-      p {
-        font-size: 1em;
-      }
-    }
-  </style>
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="container">
+  <main>
     <h1>Codex Symbiotica</h1>
-    <p>A visionary exploration of the future bond between humans and artificial intelligence. Choose your language to begin the journey.</p>
-    <div class="buttons">
-      <a href="/en" class="btn">English Edition</a>
-      <a href="/it" class="btn">Versione Italiana</a>
-    </div>
-  </div>
+    <p>A visionary manifesto for the future — where human spirit and artificial intelligence converge.</p>
+    <nav>
+      <a href="/en/index.html" aria-label="Read Codex Symbiotica in English">Read in English</a>
+      <a href="/it/index.html" aria-label="Leggi Codex Symbiotica in Italiano">Leggi in Italiano</a>
+    </nav>
+  </main>
 </body>
 </html>
