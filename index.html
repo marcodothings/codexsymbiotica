@@ -1,72 +1,52 @@
-<!-- Version 1.0.1: Original layout + circuit animation background only -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Codex Symbiotica</title>
+  <title>Your Landing Page</title>
   <style>
-    /* Elegant system-compatible font stack */
-    body {
+    /* === VERSION 1.0 === */
+    body, html {
       margin: 0;
-      font-family: 'Georgia', 'Garamond', 'serif';
-      color: #fff;
-      background: transparent;
-      position: relative;
-      z-index: 1;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
     }
 
-    /* Canvas full screen behind everything */
     canvas#circuitCanvas {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 0;
+      z-index: -1;
       width: 100vw;
       height: 100vh;
       pointer-events: none;
     }
 
-    /* Your content container */
-    .content {
-      position: relative;
-      z-index: 1;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      margin-top: 20px;
-    }
+    /* Add your existing styles here (fonts, sections, etc.) */
   </style>
 </head>
 <body>
 
-  <!-- Circuit animation canvas -->
+  <!-- === VERSION 1.0: Animated Background === -->
   <canvas id="circuitCanvas"></canvas>
 
-  <!-- Your original content -->
-  <div class="content">
+  <!-- === Your existing sections go here === -->
+  <header>
     <h1>Codex Symbiotica</h1>
-    <p>The spark of a new dawn between humanity and artificial intelligence.</p>
-    <img src="your-image.jpg" alt="Book cover or concept image" />
-    <br />
-    <button>Buy the Book</button>
-  </div>
+    <!-- other content -->
+  </header>
+  <main>
+    <p>Welcome to the future of human–AI cooperation.</p>
+    <img src="your-image.jpg" alt="Illustration" />
+    <!-- more content -->
+  </main>
+  <footer>
+    <p>© 2025 Marco de Salvo</p>
+  </footer>
 
-  <!-- Circuit animation script -->
+  <!-- === VERSION 1.0: Circuit Animation Script === -->
   <script>
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
@@ -75,7 +55,6 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
-
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
@@ -126,5 +105,6 @@
 
     animate();
   </script>
+
 </body>
 </html>
