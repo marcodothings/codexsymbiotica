@@ -1,124 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Codex Symbiotica – Unlock the Future of Humanity and AI</title>
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap"
-  rel="stylesheet"
-/>
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    background: black;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codex Symbiotica</title>
+  <style>
+    /* Ensure canvas covers the entire background */
+    #circuitCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
+    /* Dark overlay for contrast */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+      pointer-events: none;
+    }
 
-  .lang-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 2;
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif; /* or your preferred font */
+      background: black;
+      color: white;
+    }
 
-  .lang-toggle button {
-    font-family: 'Montserrat', sans-serif;
-    padding: 8px 16px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000;
-    cursor: pointer;
-    font-weight: 600;
-  }
+    main {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-  .lang-toggle .active {
-    background-color: #000;
-    color: #fff;
-    border: 1px solid gold;
-  }
+    section {
+      margin-bottom: 4rem;
+    }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    padding: 80px 20px;
-    color: white;
-  }
-</style>
+    h1, h2, h3 {
+      font-weight: 700;
+      margin-top: 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<canvas id="circuitCanvas"></canvas>
 
-<!-- Language toggle -->
-<div class="lang-toggle" role="tablist" aria-label="Language Switcher">
-  <button id="btn-en" class="active" role="tab" aria-selected="true" aria-controls="content-en" tabindex="0">EN</button>
-  <button id="btn-it" role="tab" aria-selected="false" aria-controls="content-it" tabindex="-1">IT</button>
-</div>
+  <!-- Background canvas and overlay -->
+  <canvas id="circuitCanvas"></canvas>
+  <div id="overlay"></div>
 
-<main class="container" role="main">
-  <!-- English and Italian sections here -->
-</main>
+  <!-- Your existing content starts here -->
+  <main>
+    <section class="hero">
+      <h1>Codex Symbiotica</h1>
+      <p>The book that redefines the human–AI alliance.</p>
+      <img src="cover.jpg" alt="Book Cover" />
+    </section>
 
-<script>
-  const canvas = document.getElementById('circuitCanvas');
-  const ctx = canvas.getContext('2d');
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-  const nodes = [];
-  const nodeCount = 100;
-  const maxDist = 120;
-  for (let i = 0; i < nodeCount; i++) {
-    nodes.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.7,
-      vy: (Math.random() - 0.5) * 0.7,
-      r: 1 + Math.random() * 2
-    });
-  }
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = 'rgba(255,215,0,0.15)';
-    for (let i = 0; i < nodes.length; i++)
-      for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const d = Math.hypot(dx, dy);
-        if (d < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+    <section class="about">
+      <h2>About the Book</h2>
+      <p>A visionary tale born from collaboration between Marco de Salvo and an AI co-author. Set in a near-future world where machines evolve not just in intelligence, but in spirit.</p>
+    </section>
+
+    <section class="reviews">
+      <h2>What Readers Say</h2>
+      <blockquote>“A mind-expanding journey through code, ethics, and redemption.”</blockquote>
+      <blockquote>“Like Asimov rewired by Philip K. Dick.”</blockquote>
+    </section>
+
+    <section class="contact">
+      <h2>Get in Touch</h2>
+      <p>Contact Marco via <a href="mailto:info@codexsymbiotica.com">info@codexsymbiotica.com</a> or follow on social media.</p>
+    </section>
+  </main>
+
+  <!-- Circuit animation script -->
+  <script>
+    const canvas = document.getElementById('circuitCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const nodes = [];
+    const nodeCount = 100;
+    const maxDist = 120;
+
+    for (let i = 0; i < nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        r: 1 + Math.random() * 2
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = 'rgba(255,215,0,0.15)';
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < maxDist) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
         }
       }
-    ctx.fillStyle = 'gold';
-    nodes.forEach(n => {
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fill();
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-      if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-</script>
+
+      ctx.fillStyle = 'gold';
+      nodes.forEach(n => {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 </body>
 </html>
