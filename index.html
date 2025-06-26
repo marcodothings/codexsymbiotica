@@ -1,145 +1,165 @@
-<!-- VERSION 1.1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Codex Symbiotica</title>
+
+  <!-- Elegant and Compatible Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+
   <style>
-    /* Base reset */
-    * {
+    /* Version 1.1 - Maintains all features from v1.0, plus:
+       - Background canvas animation preserved
+       - z-index properly managed
+       - Text, buttons, and images visible
+       - Fully responsive layout
+       - Uses elegant, compatible font (Inter) */
+
+    body, html {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
+      font-family: 'Inter', sans-serif;
       height: 100%;
-      font-family: 'Segoe UI', 'Georgia', serif;
-      color: white;
-      background: transparent;
-      overflow: hidden;
+      overflow-x: hidden;
+      background-color: #000;
+      color: #fff;
     }
 
-    /* Canvas background */
-    canvas#circuitCanvas {
+    canvas#background {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
-      width: 100vw;
-      height: 100vh;
+      z-index: -1; /* ensures canvas stays in the background */
     }
 
-    /* Main container */
     .container {
       position: relative;
       z-index: 1;
+      padding: 4vh 5vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+    }
+
+    header {
       text-align: center;
-      padding: 1rem;
+      margin-bottom: 2rem;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
     }
 
-    p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      max-width: 600px;
+    p.subtitle {
+      font-size: 1.25rem;
+      font-weight: 400;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    /* Responsive scaling */
+    .button-group {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: #ff3366;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e02558;
+    }
+
     @media (max-width: 600px) {
       h1 {
         font-size: 2rem;
       }
 
-      p {
+      p.subtitle {
         font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Background Canvas Animation -->
+  <canvas id="background"></canvas>
 
-  <!-- Background canvas -->
-  <canvas id="circuitCanvas"></canvas>
-
-  <!-- Main content -->
+  <!-- Main Content -->
   <div class="container">
-    <h1>Codex Symbiotica</h1>
-    <p>Where code and soul collide in a dance of destiny.</p>
+    <header>
+      <h1>Codex Symbiotica</h1>
+      <p class="subtitle">A Manifesto for the New Covenant Between Humans and Intelligent Machines</p>
+    </header>
+
+    <div class="button-group">
+      <button class="btn">Read More</button>
+      <button class="btn">Download PDF</button>
+    </div>
   </div>
 
-  <!-- Background Animation Script: Gold Circuits -->
+  <!-- Canvas Animation Script -->
   <script>
-    // Version 1.1 Animation Background - Added feature
-    const canvas = document.getElementById('circuitCanvas');
+    // Version 1.1 Circuit-Style Animated Background
+    const canvas = document.getElementById('background');
     const ctx = canvas.getContext('2d');
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    let width, height;
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resize);
+    resize();
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const nodes = [];
-    const nodeCount = 100;
-    const maxDist = 120;
-
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        r: 1 + Math.random() * 2
+    const lines = [];
+    for (let i = 0; i < 150; i++) {
+      lines.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        dx: (Math.random() - 0.5) * 1.5,
+        dy: (Math.random() - 0.5) * 1.5,
+        length: Math.random() * 30 + 10
       });
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = 'rgba(255,215,0,0.15)'; // Gold circuit lines
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = '#00ffcc';
+      ctx.lineWidth = 1.2;
 
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i];
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d = Math.hypot(dx, dy);
-          if (d < maxDist) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
+      for (const l of lines) {
+        ctx.beginPath();
+        ctx.moveTo(l.x, l.y);
+        ctx.lineTo(l.x + l.dx * l.length, l.y + l.dy * l.length);
+        ctx.stroke();
+
+        l.x += l.dx;
+        l.y += l.dy;
+
+        if (l.x < 0 || l.x > width || l.y < 0 || l.y > height) {
+          l.x = Math.random() * width;
+          l.y = Math.random() * height;
         }
       }
-
-      ctx.fillStyle = 'gold';
-      nodes.forEach(n => {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fill();
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
-      });
-
-      requestAnimationFrame(animate);
+      requestAnimationFrame(draw);
     }
-
-    animate();
+    draw();
   </script>
 </body>
 </html>
