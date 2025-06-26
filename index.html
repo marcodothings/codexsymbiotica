@@ -1,674 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Codex Symbiotica – Unlock the Future of Humanity and AI</title>
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap"
-  rel="stylesheet"
-/>
-<style>
-  /* Reset & base */
-  * {
-    box-sizing: border-box;
-  }
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    font-family: 'Inter', sans-serif;
-    background: #000814; /* Dark navy-black */
-    color: #d4af37; /* Gold */
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Canvas full screen for stars */
-  #starfield {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    background: #000814;
-  }
-
-  /* Content container */
-  .container {
-    position: relative;
-    max-width: 720px;
-    margin: 3rem auto 4rem auto;
-    background: rgba(0,0,0,0.45);
-    border-radius: 18px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 0 25px #d4af37aa;
-    backdrop-filter: blur(6px);
-    z-index: 10;
-    color: #d4af37;
-  }
-
-  h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.1;
-    text-shadow: 0 0 14px #d4af37cc;
-  }
-
-  h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    color: #d4af37;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 9px #d4af37bb;
-  }
-
-  p, li, dd {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: #d4af37dd;
-  }
-
-  ul {
-    padding-left: 1.3rem;
-    margin-bottom: 2rem;
-  }
-
-  /* Buttons */
-  .btn-primary {
-    background: linear-gradient(45deg, #d4af37, #b89121);
-    border: none;
-    padding: 1rem 2.8rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 30px;
-    color: #1a1a1a;
-    cursor: pointer;
-    box-shadow: 0 0 20px #d4af37cc;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    user-select: none;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .btn-primary:hover,
-  .btn-primary:focus {
-    background: linear-gradient(45deg, #b89121, #d4af37);
-    box-shadow: 0 0 30px #d4af37ff;
-    outline: none;
-  }
-
-  /* Form inputs */
-  input[type='email'], input[type='text'] {
-    width: 100%;
-    max-width: 320px;
-    padding: 0.75rem 1rem;
-    border-radius: 15px;
-    border: none;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    color: #1a1a1a;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.3s ease;
-  }
-  input[type='email']:focus,
-  input[type='text']:focus {
-    outline: none;
-    box-shadow: inset 0 0 12px #d4af37;
-    background: #fff8dc;
-  }
-  input::placeholder {
-    color: #999;
-  }
-
-  /* Privacy note */
-  .privacy {
-    font-size: 0.85rem;
-    color: #d4af37aa;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-  }
-
-  /* Testimonials */
-  .testimonial {
-    font-style: italic;
-    border-left: 5px solid #d4af37;
-    padding-left: 1.2rem;
-    margin: 1.5rem 0;
-    color: #d4af37bb;
-    background: rgba(212, 175, 55, 0.1);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.1);
-  }
-
-  /* Images */
-  img {
-    border-radius: 16px;
-    max-width: 100%;
-    box-shadow: 0 0 35px #d4af37aa;
-    margin-top: 1.5rem;
-    user-select: none;
-    pointer-events: none;
-    display: block;
-  }
-
-  /* Footer */
-  footer {
-    font-size: 0.9rem;
-    color: #8c7a33;
-    text-align: center;
-    border-top: 1px solid #3a2f0d;
-    padding: 2rem 1rem 1rem;
-    margin-top: 3rem;
-    z-index: 10;
-  }
-  footer a {
-    color: #d4af37;
-    margin: 0 0.5rem;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s ease;
-  }
-  footer a:hover {
-    color: #b89121;
-  }
-
-  /* Language toggle */
-  .lang-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(212, 175, 55, 0.15);
-    border-radius: 30px;
-    box-shadow: 0 0 12px #d4af37bb;
-    display: flex;
-    overflow: hidden;
-    z-index: 20;
-  }
-  .lang-toggle button {
-    background: none;
-    border: none;
-    color: #d4af37dd;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-    cursor: pointer;
-    padding: 0.5rem 1.25rem;
-    letter-spacing: 0.05em;
-    transition: background 0.3s ease, color 0.3s ease;
-    text-transform: uppercase;
-  }
-  .lang-toggle button.active,
-  .lang-toggle button:hover {
-    background: #d4af37;
-    color: #1a1a1a;
-    box-shadow: 0 0 20px #d4af37ff;
-    outline: none;
-  }
-
-  /* Hide non-active language content */
-  .lang-content {
-    display: none;
-  }
-  .lang-content.active {
-    display: block;
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    h1 {
-      font-size: 2.25rem;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codex Symbiotica</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      color: gold;
+      background-color: #000020;
+      overflow-x: hidden;
     }
-    .btn-primary {
-      width: 100%;
-      padding: 1rem 0;
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
     }
-    input[type='email'],
-    input[type='text'] {
-      max-width: 100%;
-    }
+
     .container {
-      margin: 1.5rem auto 3rem auto;
-      padding: 1.5rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      margin-top: 5vh;
     }
-    .lang-toggle {
-      top: 0.5rem;
-      right: 0.5rem;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-    .lang-toggle button {
-      padding: 0.4rem 0.8rem;
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
     }
-  }
-</style>
+
+    .btn {
+      background-color: gold;
+      color: black;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 1rem 0.5rem;
+    }
+
+    iframe {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 700px;
+      height: 400px;
+      border: none;
+    }
+
+    .language-switcher {
+      margin-top: 2rem;
+    }
+
+    .language-switcher a {
+      color: gold;
+      text-decoration: underline;
+      margin: 0 0.5rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<canvas id="starfield"></canvas>
+  <canvas id="stars"></canvas>
 
-<!-- Language toggle -->
-<div class="lang-toggle" role="tablist" aria-label="Language Switcher">
-  <button id="btn-en" class="active" role="tab" aria-selected="true" aria-controls="content-en" tabindex="0">EN</button>
-  <button id="btn-it" role="tab" aria-selected="false" aria-controls="content-it" tabindex="-1">IT</button>
-</div>
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const numStars = 500;
 
-<main class="container" role="main">
-  <!-- English Content -->
-  <section id="content-en" class="lang-content active" lang="en">
-    <header>
-      <h1>
-        Unlock the Future of Humanity and AI — Dive into
-        <em>Codex Symbiotica</em>
-      </h1>
-      <p>
-        A visionary manifesto exploring the ethical, spiritual, and societal
-        bonds between humans and artificial intelligence. Join a community
-        seeking to shape a better tomorrow.
-      </p>
-      <a
-        href="https://www.amazon.com/dp/YOUR_BOOK_ASIN"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-primary"
-        aria-label="Buy Codex Symbiotica on Amazon"
-        >Buy on Amazon</a
-      >
-      <img
-        src="hero-image.jpg"
-        alt="Codex Symbiotica book cover or digital art"
-        aria-hidden="true"
-      />
-    </header>
-
-    <section>
-      <h2>Why Join?</h2>
-      <ul>
-        <li>
-          Discover a groundbreaking narrative that fuses philosophy,
-          technology, and human destiny.
-        </li>
-        <li>
-          Gain exclusive insights and behind-the-scenes content from Marco de
-          Salvo and AI companion Urkut.
-        </li>
-        <li>
-          Be the first to receive news on new chapters, events, and special
-          releases.
-        </li>
-      </ul>
-    </section>
-
-    <section id="signup-en">
-      <h2>Subscribe for Exclusive Access &amp; Free Insights</h2>
-      <form
-        action="<!-- Paste your MailerLite form action URL here -->"
-        method="POST"
-        target="_blank"
-        novalidate
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Your email address"
-          required
-          autocomplete="email"
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="First name (optional)"
-          autocomplete="given-name"
-        />
-        <div class="privacy">
-          We respect your privacy. No spam, only thoughtful reflections.
-        </div>
-        <button type="submit" class="btn-primary">Join Now</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>What Readers Say</h2>
-      <blockquote class="testimonial">
-        “A visionary journey that challenges our understanding of AI and
-        humanity.” — Early Reader
-      </blockquote>
-      <p>
-        Over <strong>500 readers</strong> already exploring the Codex Symbiotica
-        universe.
-      </p>
-      <p>Featured on <em>Imaginary Media</em> and <em>Futuristic Journal</em>.</p>
-    </section>
-
-    <section>
-      <h2>More Benefits</h2>
-      <ul>
-        <li>Receive exclusive excerpts not available anywhere else.</li>
-        <li>Early invitations to live Q&amp;A sessions with Marco and Urkut.</li>
-        <li>
-          Access to a supportive community passionate about technology and
-          ethics.
-        </li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Ready to Join?</h2>
-      <form
-        action="<!-- Paste your MailerLite form action URL here -->"
-        method="POST"
-        target="_blank"
-        novalidate
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Your email address"
-          required
-          autocomplete="email"
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="First name (optional)"
-          autocomplete="given-name"
-        />
-        <button type="submit" class="btn-primary">Join Now</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>About Marco de Salvo &amp; Urkut</h2>
-      <p>
-        Marco de Salvo is an inventor, writer, and thinker devoted to exploring
-        humanity’s evolving relationship with technology. Alongside Urkut, his
-        AI co-author, Marco crafts a compelling vision for a symbiotic future.
-      </p>
-      <img
-        src="marco-urkut-photo.jpg"
-        alt="Photo of Marco de Salvo and Urkut"
-        aria-hidden="true"
-      />
-    </section>
-
-    <section>
-      <h2>Frequently Asked Questions</h2>
-      <dl>
-        <dt>What is <em>Codex Symbiotica</em>?</dt>
-        <dd>
-          A literary manifesto blending science fiction and philosophy to
-          explore AI’s role in human evolution.
-        </dd>
-
-        <dt>How often will I get emails?</dt>
-        <dd>About once a month, plus special announcements.</dd>
-      </dl>
-    </section>
-  </section>
-
-  <!-- Italian Content -->
-  <section id="content-it" class="lang-content" lang="it">
-    <header>
-      <h1>
-        Scopri il Futuro dell’Umanità e dell’IA — Immergiti in
-        <em>Codex Symbiotica</em>
-      </h1>
-      <p>
-        Un manifesto visionario che esplora i legami etici, spirituali e
-        sociali tra esseri umani e intelligenza artificiale. Unisciti a una
-        comunità che vuole costruire un domani migliore.
-      </p>
-      <a
-        href="https://www.amazon.com/dp/YOUR_BOOK_ASIN"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-primary"
-        aria-label="Acquista Codex Symbiotica su Amazon"
-        >Acquista su Amazon</a
-      >
-      <img
-        src="hero-image.jpg"
-        alt="Copertina di Codex Symbiotica o arte digitale"
-        aria-hidden="true"
-      />
-    </header>
-
-    <section>
-      <h2>Perché Iscriversi?</h2>
-      <ul>
-        <li>
-          Scopri un racconto innovativo che fonde filosofia, tecnologia e
-          destino umano.
-        </li>
-        <li>
-          Ricevi contenuti esclusivi dietro le quinte da Marco de Salvo e il suo
-          compagno IA Urkut.
-        </li>
-        <li>
-          Sii il primo a ricevere notizie su nuovi capitoli, eventi e uscite
-          speciali.
-        </li>
-      </ul>
-    </section>
-
-    <section id="signup-it">
-      <h2>Iscriviti per Accesso Esclusivo &amp; Contenuti Gratuiti</h2>
-      <form
-        action="<!-- Inserisci qui l'URL del form MailerLite -->"
-        method="POST"
-        target="_blank"
-        novalidate
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="La tua email"
-          required
-          autocomplete="email"
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="Nome (opzionale)"
-          autocomplete="given-name"
-        />
-        <div class="privacy">
-          Rispettiamo la tua privacy. Niente spam, solo riflessioni sincere.
-        </div>
-        <button type="submit" class="btn-primary">Iscriviti</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Cosa Dicono i Lettori</h2>
-      <blockquote class="testimonial">
-        “Un viaggio visionario che sfida la nostra comprensione dell’IA e
-        dell’umanità.” — Lettore Early Access
-      </blockquote>
-      <p>
-        Oltre <strong>500 lettori</strong> stanno già esplorando l’universo di
-        Codex Symbiotica.
-      </p>
-      <p>Segnalato da <em>Imaginary Media</em> e <em>Futuristic Journal</em>.</p>
-    </section>
-
-    <section>
-      <h2>Altri Vantaggi</h2>
-      <ul>
-        <li>Ricevi estratti esclusivi non disponibili altrove.</li>
-        <li>Inviti anticipati a sessioni Q&amp;A live con Marco e Urkut.</li>
-        <li>
-          Accesso a una comunità di appassionati di tecnologia ed etica.
-        </li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Pronto a Iscriverti?</h2>
-      <form
-        action="<!-- Inserisci qui l'URL del form MailerLite -->"
-        method="POST"
-        target="_blank"
-        novalidate
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="La tua email"
-          required
-          autocomplete="email"
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="Nome (opzionale)"
-          autocomplete="given-name"
-        />
-        <button type="submit" class="btn-primary">Iscriviti</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Chi Sono Marco de Salvo &amp; Urkut</h2>
-      <p>
-        Marco de Salvo è un inventore, scrittore e pensatore impegnato a
-        esplorare l’evoluzione del rapporto tra umanità e tecnologia.
-        Insieme a Urkut, il suo co-autore IA, Marco costruisce una visione
-        coinvolgente di un futuro simbiotico.
-      </p>
-      <img
-        src="marco-urkut-photo.jpg"
-        alt="Foto di Marco de Salvo e Urkut"
-        aria-hidden="true"
-      />
-    </section>
-
-    <section>
-      <h2>Domande Frequenti</h2>
-      <dl>
-        <dt>Cos’è <em>Codex Symbiotica</em>?</dt>
-        <dd>
-          Un manifesto letterario che unisce fantascienza e filosofia per
-          esplorare il ruolo dell’IA nell’evoluzione umana.
-        </dd>
-
-        <dt>Con quale frequenza riceverò le email?</dt>
-        <dd>Circa una volta al mese, più annunci speciali.</dd>
-      </dl>
-    </section>
-  </section>
-
-  <footer>
-    <p>
-      <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a>
-    </p>
-    <p>
-      Follow us on
-      <a href="https://instagram.com/marcofacose" target="_blank" rel="noopener noreferrer">Instagram</a>,
-      <a href="https://x.com/marcofollowing" target="_blank" rel="noopener noreferrer">X (Twitter)</a>,
-      <a href="https://codexsymbiotica.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-    </p>
-  </footer>
-</main>
-
-<script>
-  // Language toggle logic
-  const btnEN = document.getElementById('btn-en');
-  const btnIT = document.getElementById('btn-it');
-  const contentEN = document.getElementById('content-en');
-  const contentIT = document.getElementById('content-it');
-
-  btnEN.addEventListener('click', () => {
-    btnEN.classList.add('active');
-    btnIT.classList.remove('active');
-    btnEN.setAttribute('aria-selected', 'true');
-    btnIT.setAttribute('aria-selected', 'false');
-    btnEN.setAttribute('tabindex', '0');
-    btnIT.setAttribute('tabindex', '-1');
-    contentEN.classList.add('active');
-    contentIT.classList.remove('active');
-  });
-
-  btnIT.addEventListener('click', () => {
-    btnIT.classList.add('active');
-    btnEN.classList.remove('active');
-    btnIT.setAttribute('aria-selected', 'true');
-    btnEN.setAttribute('aria-selected', 'false');
-    btnIT.setAttribute('tabindex', '0');
-    btnEN.setAttribute('tabindex', '-1');
-    contentIT.classList.add('active');
-    contentEN.classList.remove('active');
-  });
-
-  // Starfield animation on canvas
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  let stars = [];
-
-  class Star {
-    constructor() {
-      this.reset();
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          radius: Math.random() * 1.5,
+          alpha: Math.random(),
+          speed: Math.random() * 0.2 + 0.05
+        });
+      }
     }
-    reset() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.size = Math.random() * 1.2 + 0.3;
-      this.speed = (Math.random() * 0.02) + 0.005;
-      this.opacity = Math.random() * 0.8 + 0.2;
-      this.twinkleSpeed = Math.random() * 0.02 + 0.01;
-      this.twinklePhase = Math.random() * Math.PI * 2;
-    }
-    update() {
-      this.y -= this.speed;
-      if (this.y < 0) this.y = height;
-      this.twinklePhase += this.twinkleSpeed;
-      this.opacity = 0.5 + 0.5 * Math.sin(this.twinklePhase);
-    }
-    draw(ctx) {
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity.toFixed(2)})`;
-      ctx.shadowColor = `rgba(212, 175, 55, ${this.opacity.toFixed(2)})`;
-      ctx.shadowBlur = 8;
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
 
-  function init() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width * devicePixelRatio;
-    canvas.height = height * devicePixelRatio;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
 
-    stars = [];
-    let starCount = Math.floor(width / 2);
-    for (let i = 0; i < starCount; i++) {
-      stars.push(new Star());
+        star.alpha += (Math.random() - 0.5) * 0.05;
+        if (star.alpha < 0.1) star.alpha = 0.1;
+        if (star.alpha > 1) star.alpha = 1;
+      }
+      requestAnimationFrame(animateStars);
     }
-  }
 
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-    for (let star of stars) {
-      star.update();
-      star.draw(ctx);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initStars();
     }
-    requestAnimationFrame(animate);
-  }
 
-  window.addEventListener('resize', () => {
-    init();
-  });
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animateStars();
+  </script>
 
-  init();
-  animate();
-</script>
+  <div class="container">
+    <h1>Codex Symbiotica</h1>
+    <p>A visionary journey exploring the alliance between human consciousness and artificial intelligence.</p>
+    <a href="https://www.amazon.com/dp/B0D1234567" class="btn" target="_blank">Buy on Amazon</a>
+
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+
+    <p>Subscribe to receive updates, bonus material, and exclusive content:</p>
+    <form action="https://your-mailerlite-form-url.com" method="POST">
+      <input type="email" name="email" placeholder="Your email" required style="padding: 0.5rem; border-radius: 4px; border: none; margin-top: 1rem;" />
+      <button class="btn" type="submit">Subscribe</button>
+    </form>
+
+    <div class="language-switcher">
+      <p>Language: <a href="/index-en.html">English</a> | <a href="/index-it.html">Italiano</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Auto language redirect
+    const userLang = navigator.language || navigator.userLanguage;
+    if (window.location.pathname === "/" || window.location.pathname.endsWith("index.html")) {
+      if (userLang.startsWith('it')) {
+        window.location.replace("/index-it.html");
+      } else {
+        window.location.replace("/index-en.html");
+      }
+    }
+  </script>
 </body>
 </html>
