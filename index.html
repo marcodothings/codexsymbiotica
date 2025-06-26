@@ -59,22 +59,25 @@
       background-color: rgba(255, 255, 255, 0.2);
     }
 
-    .background-anim {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.07;
-      animation: scrollBG 120s linear infinite;
-    }
+ .background-anim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  opacity: 0.3;
+}
 
-    @keyframes scrollBG {
-      0% { background-position: 0 0; }
-      100% { background-position: 10000px 10000px; }
-    }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
     @media (max-width: 768px) {
       header h1 {
