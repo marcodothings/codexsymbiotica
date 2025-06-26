@@ -1,19 +1,27 @@
+<!-- VERSION 1.1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Landing Page</title>
+  <title>Codex Symbiotica</title>
   <style>
-    /* === VERSION 1.0 === */
-    body, html {
+    /* Base reset */
+    * {
       margin: 0;
       padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
+      box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', 'Georgia', serif;
+      color: white;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    /* Canvas background */
     canvas#circuitCanvas {
       position: fixed;
       top: 0;
@@ -21,33 +29,57 @@
       z-index: -1;
       width: 100vw;
       height: 100vh;
-      pointer-events: none;
     }
 
-    /* Add your existing styles here (fonts, sections, etc.) */
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      max-width: 600px;
+    }
+
+    /* Responsive scaling */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- === VERSION 1.0: Animated Background === -->
+  <!-- Background canvas -->
   <canvas id="circuitCanvas"></canvas>
 
-  <!-- === Your existing sections go here === -->
-  <header>
+  <!-- Main content -->
+  <div class="container">
     <h1>Codex Symbiotica</h1>
-    <!-- other content -->
-  </header>
-  <main>
-    <p>Welcome to the future of human–AI cooperation.</p>
-    <img src="your-image.jpg" alt="Illustration" />
-    <!-- more content -->
-  </main>
-  <footer>
-    <p>© 2025 Marco de Salvo</p>
-  </footer>
+    <p>Where code and soul collide in a dance of destiny.</p>
+  </div>
 
-  <!-- === VERSION 1.0: Circuit Animation Script === -->
+  <!-- Background Animation Script: Gold Circuits -->
   <script>
+    // Version 1.1 Animation Background - Added feature
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -55,6 +87,7 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
+
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
@@ -74,11 +107,14 @@
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = 'rgba(255,215,0,0.15)';
+      ctx.strokeStyle = 'rgba(255,215,0,0.15)'; // Gold circuit lines
+
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
+          const a = nodes[i];
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
           const d = Math.hypot(dx, dy);
           if (d < maxDist) {
             ctx.beginPath();
@@ -105,6 +141,5 @@
 
     animate();
   </script>
-
 </body>
 </html>
