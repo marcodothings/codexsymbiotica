@@ -1,11 +1,12 @@
+<!-- Version 1.1 – Based on v1.0 + Transparent Container -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Codex Symbiotica</title>
   <style>
-    /* === Global Reset and Base Styles === */
+    /* Reset and base styles */
     * {
       margin: 0;
       padding: 0;
@@ -15,50 +16,70 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: black;
       overflow: hidden;
-      background: #000;
+      color: #f0f0f0;
     }
 
+    /* Canvas styling */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
+      z-index: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
+      display: block;
     }
 
+    /* Main content container */
     .container {
       position: relative;
-      width: 100%;
-      height: 100%;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
+      min-height: 100vh;
       padding: 2rem;
-      background: rgba(0, 0, 0, 0.3); /* Transparent container */
+      background-color: rgba(0, 0, 0, 0.2); /* ✅ Transparent container */
+      backdrop-filter: blur(4px);
+      text-align: center;
     }
 
     h1 {
-      color: #ffe600;
-      font-size: 2.5rem;
+      font-size: 3rem;
+      color: #FFD700;
       margin-bottom: 1rem;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
     }
 
     p {
-      color: #ffffff;
       font-size: 1.2rem;
       max-width: 600px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #FFD700;
+      color: #000;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #e6c200;
     }
 
     @media (max-width: 600px) {
       h1 {
         font-size: 2rem;
       }
+
       p {
         font-size: 1rem;
       }
@@ -66,61 +87,86 @@
   </style>
 </head>
 <body>
-  <canvas id="circuitCanvas"></canvas>
+  <canvas id="circuit-canvas"></canvas>
+
   <div class="container">
     <h1>Codex Symbiotica</h1>
-    <p>A visionary journey into the future of human–AI symbiosis, born from real collaboration.</p>
+    <p>
+      A visionary journey into the bond between minds and machines. Explore ethics, consciousness, and the dawn of a new alliance.
+    </p>
+    <a href="https://www.codexsymbiotica.com" class="button">Enter the Codex</a>
   </div>
 
   <script>
-    // === Circuit Animation Background ===
-    const canvas = document.getElementById('circuitCanvas');
+    // Glowing circuit animation background
+    const canvas = document.getElementById('circuit-canvas');
     const ctx = canvas.getContext('2d');
-    let width, height;
 
     function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const circuits = [];
-    const lineCount = 120;
+    const lines = [];
+    const maxLines = 120;
 
-    for (let i = 0; i < lineCount; i++) {
-      circuits.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5,
-        length: 10 + Math.random() * 50,
-        opacity: 0.3 + Math.random() * 0.5,
-      });
-    }
-
-    function drawCircuit() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.strokeStyle = '#ffe600';
-
-      for (const c of circuits) {
-        ctx.beginPath();
-        ctx.moveTo(c.x, c.y);
-        ctx.lineTo(c.x + c.length, c.y);
-        ctx.strokeStyle = `rgba(255, 230, 0, ${c.opacity})`;
-        ctx.stroke();
-
-        c.x += c.dx;
-        c.y += c.dy;
-
-        if (c.x < 0 || c.x > width) c.dx *= -1;
-        if (c.y < 0 || c.y > height) c.dy *= -1;
+    class Line {
+      constructor() {
+        this.reset();
       }
-      requestAnimationFrame(drawCircuit);
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.length = Math.random() * 100 + 20;
+        this.speed = Math.random() * 1 + 0.5;
+        this.angle = (Math.floor(Math.random() * 4) * Math.PI) / 2;
+        this.alpha = Math.random() * 0.3 + 0.2;
+        this.width = Math.random() * 2 + 0.5;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        const xEnd = this.x + Math.cos(this.angle) * this.length;
+        const yEnd = this.y + Math.sin(this.angle) * this.length;
+        ctx.lineTo(xEnd, yEnd);
+        ctx.strokeStyle = `rgba(255, 215, 0, ${this.alpha})`; // golden glow
+        ctx.lineWidth = this.width;
+        ctx.shadowColor = 'gold';
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+        ctx.restore();
+
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+
+        if (
+          this.x < 0 || this.x > canvas.width ||
+          this.y < 0 || this.y > canvas.height
+        ) {
+          this.reset();
+        }
+      }
     }
 
-    drawCircuit();
+    for (let i = 0; i < maxLines; i++) {
+      lines.push(new Line());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const line of lines) {
+        line.draw();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
