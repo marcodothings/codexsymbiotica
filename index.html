@@ -3,157 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" /> <!-- REMOVE THIS LINE BEFORE LAUNCH -->
+  <meta name="robots" content="noindex, nofollow"> <!-- REMOVE THIS LINE WHEN READY FOR INDEXING -->
   <title>Codex Symbiotica</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: white;
-      height: 100vh;
+      height: 100%;
       overflow: hidden;
-      position: relative;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: black;
+      color: #f0f0f0;
     }
 
-    canvas {
+    .stars {
       position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      background-image: radial-gradient(white 1px, transparent 0);
+      background-size: 3px 3px;
+      animation: stars 60s linear infinite;
+      z-index: 0;
     }
 
-    .overlay {
+    @keyframes stars {
+      0% { background-position: 0 0; }
+      100% { background-position: 10000px 10000px; }
+    }
+
+    .container {
       position: relative;
-      z-index: 10;
+      z-index: 2;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      padding: 2rem;
+      align-items: center;
       text-align: center;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(6px);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
     }
 
     h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 3em;
+      color: gold;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+      margin-bottom: 0.5em;
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1.2em;
       max-width: 600px;
-      margin-bottom: 2rem;
-      line-height: 1.5;
+      margin-bottom: 2em;
     }
 
     .buttons {
       display: flex;
-      gap: 1rem;
+      gap: 1em;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      color: white;
-      background: linear-gradient(135deg, #0ff 0%, #0cf 100%);
-      border: none;
-      border-radius: 2rem;
-      cursor: pointer;
-      box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
-      transition: all 0.3s ease;
+      background: transparent;
+      border: 2px solid gold;
+      color: gold;
+      padding: 0.8em 1.5em;
+      font-size: 1em;
+      border-radius: 30px;
       text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
     }
 
     .btn:hover {
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-      transform: scale(1.05);
+      background: gold;
+      color: black;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 1);
     }
 
     @media screen and (max-width: 600px) {
       h1 {
-        font-size: 2rem;
+        font-size: 2em;
       }
       p {
-        font-size: 1rem;
-      }
-      .btn {
-        width: 100%;
-        text-align: center;
+        font-size: 1em;
       }
     }
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
-  <div class="overlay">
+  <div class="stars"></div>
+  <div class="container">
     <h1>Codex Symbiotica</h1>
-    <p>A visionary journey through the ethics, spirit, and future of human–AI symbiosis.</p>
+    <p>A visionary exploration of the future bond between humans and artificial intelligence. Choose your language to begin the journey.</p>
     <div class="buttons">
-      <a href="/en/" class="btn">English</a>
-      <a href="/it/" class="btn">Italiano</a>
+      <a href="/en" class="btn">English Edition</a>
+      <a href="/it" class="btn">Versione Italiana</a>
     </div>
   </div>
-
-  <script>
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    const STAR_COUNT = 150;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function createStars() {
-      stars = [];
-      for (let i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 1.2,
-          velocity: Math.random() * 0.3 + 0.05
-        });
-      }
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      for (const star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-        star.y += star.velocity;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      }
-    }
-
-    function animate() {
-      drawStars();
-      requestAnimationFrame(animate);
-    }
-
-    createStars();
-    animate();
-  </script>
 </body>
 </html>
