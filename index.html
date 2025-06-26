@@ -146,9 +146,9 @@
     const userLang = navigator.language || navigator.userLanguage;
     if (window.location.pathname === "/" || window.location.pathname.endsWith("index.html")) {
       if (userLang.startsWith('it')) {
-        window.location.replace("/index-it.html");
+        window.location.replace("/it/index.html");
       } else {
-        window.location.replace("/index-en.html");
+        window.location.replace("/en/index.html");
       }
     }
   </script>
