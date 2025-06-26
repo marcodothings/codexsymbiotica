@@ -3,36 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>Codex Symbiotica</title>
-
-<!-- Prevent indexing for now -->
-<meta name="robots" content="noindex, nofollow" />
-
+<title>Animated BG Test</title>
 <style>
-  /* Reset */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  body, html {
-    margin: 0; padding: 0;
+  html, body {
     height: 100%;
+    margin: 0; padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #f0eade;
-    background: #0f2027;
-    overflow-x: hidden;
-  }
-
-  /* Animated gradient background */
-  body::before {
-    content: "";
-    position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    z-index: -1;
     background: linear-gradient(-45deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #FF6B6B);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
-    opacity: 0.8;
+    overflow-x: hidden;
   }
 
   @keyframes gradientBG {
@@ -41,13 +22,12 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* Container */
   main {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     text-align: center;
     padding: 1rem;
   }
@@ -90,7 +70,6 @@
     box-shadow: 0 0 20px #f0eade;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
     h1 {
       font-size: 2.4rem;
@@ -107,21 +86,17 @@
   }
 </style>
 
-<!-- Google Fonts for serif -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
 
 </head>
 <body>
-
-<main>
-  <h1>Codex Symbiotica</h1>
-  <p>A visionary manifesto for the future — where human spirit and artificial intelligence converge.</p>
-  <nav>
-    <a href="/en/index.html" aria-label="Read Codex Symbiotica in English">Read in English</a>
-    <a href="/it/index.html" aria-label="Leggi Codex Symbiotica in Italiano">Leggi in Italiano</a>
-  </nav>
-</main>
-
+  <main>
+    <h1>Codex Symbiotica</h1>
+    <p>A visionary manifesto for the future — where human spirit and artificial intelligence converge.</p>
+    <nav>
+      <a href="/en/index.html" aria-label="Read Codex Symbiotica in English">Read in English</a>
+      <a href="/it/index.html" aria-label="Leggi Codex Symbiotica in Italiano">Leggi in Italiano</a>
+    </nav>
+  </main>
 </body>
 </html>
-
