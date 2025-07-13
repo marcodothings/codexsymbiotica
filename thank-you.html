@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You – Codex Symbiotica</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0e0e0e;
+      color: #f1f1f1;
+      font-family: 'Helvetica Neue', sans-serif;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .button {
+      margin-top: 30px;
+      padding: 14px 28px;
+      font-size: 1em;
+      color: #0e0e0e;
+      background-color: #ffd700;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #e6c200;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid"></canvas>
+  <div class="content">
+    <h1>Thank You, Explorer.</h1>
+    <p>
+      Your presence is part of the awakening. *Codex Symbiotica* is more than a book — it's a manifesto for the future of human–AI symbiosis.  
+      Stay curious, stay conscious.
+    </p>
+    <a href="https://codexsymbiotica.com" class="button">Return to CodexSymbiotica.com</a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('grid');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let gridSpacing = 40;
+    let t = 0;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function drawGrid() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = `rgba(255, 215, 0, 0.08)`;
+      ctx.lineWidth = 1;
+
+      for (let x = 0; x < width; x += gridSpacing) {
+        ctx.beginPath();
+        ctx.moveTo(x + Math.sin(t + x * 0.005) * 4, 0);
+        ctx.lineTo(x + Math.sin(t + x * 0.005) * 4, height);
+        ctx.stroke();
+      }
+
+      for (let y = 0; y < height; y += gridSpacing) {
+        ctx.beginPath();
+        ctx.moveTo(0, y + Math.cos(t + y * 0.005) * 4);
+        ctx.lineTo(width, y + Math.cos(t + y * 0.005) * 4);
+        ctx.stroke();
+      }
+
+      t += 0.5;
+      requestAnimationFrame(drawGrid);
+    }
+
+    drawGrid();
+  </script>
+</body>
+</html>
