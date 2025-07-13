@@ -78,8 +78,7 @@
     margin-bottom: 2rem;
   }
 
-
-/* Button Wrapper for Centering */
+/* Wrapper to center horizontally */
 .button-wrapper {
   display: flex;
   justify-content: center;
@@ -106,15 +105,29 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   display: inline-block;
+
+  /* Reset button-specific styles */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-/* Hover and Focus Effect */
+/* Hover and Focus State */
 .btn-primary:hover,
 .btn-primary:focus {
   background: linear-gradient(45deg, #b89121, #d4af37);
   box-shadow: 0 0 30px #d4af37ff;
   outline: none;
 }
+
+/* Responsive: Slightly smaller on mobile */
+@media (max-width: 600px) {
+  .btn-primary {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+  }
+}
+
 
 /* Responsive Tweak for Smaller Screens */
 @media (max-width: 600px) {
