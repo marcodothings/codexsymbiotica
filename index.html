@@ -78,31 +78,51 @@
     margin-bottom: 2rem;
   }
 
-  /* Buttons */
-  .btn-primary {
-    background: linear-gradient(45deg, #d4af37, #b89121);
-    border: none;
-    padding: 1rem 2.8rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 30px;
-    color: #1a1a1a;
-    cursor: pointer;
-    box-shadow: 0 0 20px #d4af37cc;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    user-select: none;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .btn-primary:hover,
-  .btn-primary:focus {
-    background: linear-gradient(45deg, #b89121, #d4af37);
-    box-shadow: 0 0 30px #d4af37ff;
-    outline: none;
-  }
+
+
+
+/* Button Centering Wrapper */
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: linear-gradient(45deg, #d4af37, #b89121);
+  border: none;
+  padding: 1rem 2.8rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 30px;
+  color: #1a1a1a;
+  cursor: pointer;
+  box-shadow: 0 0 20px #d4af37cc;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Hover and Focus State */
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(45deg, #b89121, #d4af37);
+  box-shadow: 0 0 30px #d4af37ff;
+  outline: none;
+}
+
+
+
+
+  
+
 
   /* Form inputs */
   input[type='email'], input[type='text'] {
