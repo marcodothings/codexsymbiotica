@@ -251,22 +251,61 @@
       width: 100%;
       padding: 1rem 0;
     }
+    
     input[type='email'],
     input[type='text'] {
       max-width: 100%;
     }
+    
     .container {
       margin: 1.5rem auto 3rem auto;
       padding: 1.5rem 1.5rem;
     }
+    
     .lang-toggle {
       top: 0.5rem;
       right: 0.5rem;
     }
+    
     .lang-toggle button {
       padding: 0.4rem 0.8rem;
     }
   }
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  margin: 10% auto;
+  padding: 2rem;
+  border: 1px solid #555;
+  width: 90%;
+  max-width: 600px;
+  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+  
 </style>
 </head>
 <body>
@@ -585,7 +624,8 @@
 
   <footer>
     <p>
-      <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a>
+      <a href="#" onclick="openModal('termsModal')">Terms of Use</a> | 
+  <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a>
     </p>
     <p>
       Follow us on
@@ -596,6 +636,32 @@
   </footer>
 </main>
 
+
+<!-- Terms of Use Modal -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('termsModal')">&times;</span>
+    <h2>Terms of Use</h2>
+    <p><strong>Intellectual Property:</strong> All content... (your full text here)</p>
+    <p><strong>Use of Content:</strong> Content is provided for... </p>
+    <!-- Add full terms text here -->
+  </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacyModal')">&times;</span>
+    <h2>Privacy Policy</h2>
+    <p><strong>What We Collect:</strong> When you subscribe... </p>
+    <p><strong>How We Use It:</strong> Your data is used solely... </p>
+    <!-- Add full privacy text here -->
+  </div>
+</div>
+
+
+
+  
 <script>
   // LANGUAGE TOGGLE - hidden buttons (kept for accessibility but not visible)
   const btnEN = document.getElementById('btn-en');
@@ -759,7 +825,31 @@ autoDetectLanguage();
   animate();
 </script>
 
+<script>
+  function openModal(id) {
+    document.getElementById(id).style.display = 'block';
+  }
 
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  // Close modal on outside click
+  window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  };
+</script>
+
+
+  
+<div id="termsModal" class="modal"> ... </div>
+<div id="privacyModal" class="modal"> ... </div>
+  
 </body>
 </html>
 
