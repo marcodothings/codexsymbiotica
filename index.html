@@ -600,33 +600,10 @@
   const btnIT = document.getElementById('btn-it');
   const contentEN = document.getElementById('content-en');
   const contentIT = document.getElementById('content-it');
-
-  btnEN.style.position = 'absolute';
-  btnEN.style.width = '1px';
-  btnEN.style.height = '1px';
-  btnEN.style.padding = '0';
-  btnEN.style.margin = '-1px';
-  btnEN.style.overflow = 'hidden';
-  btnEN.style.clip = 'rect(0,0,0,0)';
-  btnEN.style.border = '0';
-
-  btnIT.style.position = 'absolute';
-  btnIT.style.width = '1px';
-  btnIT.style.height = '1px';
-  btnIT.style.padding = '0';
-  btnIT.style.margin = '-1px';
-  btnIT.style.overflow = 'hidden';
-  btnIT.style.clip = 'rect(0,0,0,0)';
-  btnIT.style.border = '0';
-
-  btnEN.classList.add('active');
-  btnEN.setAttribute('aria-selected', 'true');
-  btnEN.setAttribute('tabindex', '0');
-  btnIT.setAttribute('aria-selected', 'false');
-  btnIT.setAttribute('tabindex', '-1');
-  contentEN.classList.add('active');
-  contentIT.classList.remove('active');
-
+  
+  btnEN.addEventListener('click', switchToEN);
+  btnIT.addEventListener('click', switchToIT);
+  
   function switchToEN() {
     btnEN.classList.add('active');
     btnIT.classList.remove('active');
@@ -650,6 +627,21 @@
   window.switchToEN = switchToEN;
   window.switchToIT = switchToIT;
 
+function autoDetectLanguage() {
+  const userLang = navigator.language || navigator.userLanguage || 'en';
+
+  if (userLang.toLowerCase().startsWith('it')) {
+    switchToIT();
+  } else {
+    switchToEN();
+  }
+}
+
+// Run auto detection on page load
+autoDetectLanguage();
+
+
+  
   // CIRCUIT ANIMATION (no grid lines)
 
   const canvas = document.getElementById('starfield');
