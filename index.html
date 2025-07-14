@@ -950,6 +950,8 @@ autoDetectLanguage();
   animate();
 </script>
 
+
+  
 <script>
   function openModal(id) {
     document.getElementById(id).style.display = 'block';
@@ -968,6 +970,32 @@ autoDetectLanguage();
       }
     });
   };
+
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email.trim());
+}
+
+// Add event listeners to all forms
+document.querySelectorAll('form').forEach(form => {
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const emailInput = form.querySelector('input[type="email"]');
+    if (!emailInput) return;
+
+    if (!validateEmail(emailInput.value)) {
+      openModal('errorModal');
+      emailInput.focus();
+      return;
+    }
+
+    // If email valid, submit form and show success modal
+    form.submit();
+    openModal('successModal');
+  });
+});
+  
 </script>
 
 
