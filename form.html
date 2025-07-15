@@ -3,105 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Codex Symbiotica Newsletter</title>
+  <title>Codex Symbiotica</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       background-color: #0e0e0e;
-      color: #f0f0f0;
+      color: #f8f8f8;
+      overflow-x: hidden;
     }
 
-    #circuit-background {
+    /* Less distracting animated background */
+    canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       z-index: -1;
+      opacity: 0.1;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #ffcc66;
+    }
+
+    p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .form-container {
+      text-align: center;
+      margin-top: 2rem;
     }
 
     .ml-form-embed {
-      background-color: transparent !important;
-      padding: 2rem;
-      border-radius: 10px;
       max-width: 600px;
-      margin: 5rem auto;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-    }
-
-    .ml-form-embed h4 {
-      color: #ffd700;
-      font-size: 1.5rem;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(255, 204, 102, 0.3);
     }
 
     .ml-form-embed input[type="email"] {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ffd700;
-      border-radius: 5px;
-      background-color: #1a1a1a;
-      color: #f0f0f0;
+      width: 80%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      border: none;
       margin-bottom: 1rem;
     }
 
-    .ml-form-embed button {
-      background-color: #ffd700;
-      color: #0e0e0e;
+    .ml-form-embed button, .ml-form-embed input[type="submit"] {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #ffcc66;
+      color: #000;
       border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
+      border-radius: 0.5rem;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
-    .ml-form-embed button:hover {
-      background-color: #e6c200;
+    .ml-form-embed button:hover, .ml-form-embed input[type="submit"]:hover {
+      background-color: #ffd97a;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <canvas id="circuit-background"></canvas>
-
-  <!-- MailerLite Embed Form - styled to match -->
-  <div class="ml-form-embed"
-       data-account="292738"
-       data-form="6163845">
-    <div class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-6163845">
-      <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/292738/forms/6163845/subscribe" data-code="6163845" method="post" target="_blank">
-        <h4>Subscribe to the Codex Symbiotica Newsletter</h4>
-        <input type="email" name="fields[email]" placeholder="Your email address" required />
-        <button type="submit">Subscribe</button>
-      </form>
+  <canvas id="background"></canvas>
+  <header>
+    <h1>Codex Symbiotica</h1>
+    <p>Subscribe to our newsletter to receive insights, updates, and visionary thoughts about the alliance between humanity and AI.</p>
+  </header>
+  <div class="form-container">
+    <!-- MailerLite Universal Embed Code -->
+    <div class="ml-form-embed"
+      data-account="your-account-hash"
+      data-form="your-form-id">
     </div>
+    <script>
+      (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;
+      function f(){ var c={ a:arguments, q:[]};
+      var r=this.push(c); return "number"!=typeof r?r:f.bind(c.q); }
+      f.q=f.q||[]; m[e]=m[e]||f.bind(f.q);
+      m[e].q=m[e].q||f.q; r=a.createElement(i);
+      var _=a.getElementsByTagName(i)[0]; r.async=1; r.src=l+'?v'+(~~(new Date().getTime()/1000000));
+      _.parentNode.insertBefore(r,_);
+      })(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
+      ml('form', {
+        account: 'your-account-hash',
+        form: 'your-form-id'
+      });
+    </script>
   </div>
-
+  <footer>
+    &copy; 2025 Codex Symbiotica. All rights reserved.
+  </footer>
   <script>
-    // Canvas animation (circuit)
-    const canvas = document.getElementById('circuit-background');
+    const canvas = document.getElementById('background');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const cols = Math.floor(canvas.width / 20);
-    const ypos = Array(cols).fill(0);
-
-    function matrixEffect() {
-      ctx.fillStyle = 'rgba(14, 14, 14, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#FFD700';
-      ctx.font = '15pt monospace';
-
-      ypos.forEach((y, ind) => {
-        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
-        const x = ind * 20;
-        ctx.fillText(text, x, y);
-        if (y > canvas.height + Math.random() * 10000) ypos[ind] = 0;
-        else ypos[ind] = y + 20;
+    let lines = [];
+    for (let i = 0; i < 100; i++) {
+      lines.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        l: 1 + Math.random() * 2,
+        xs: -0.5 + Math.random(),
+        ys: -0.5 + Math.random(),
       });
     }
 
-    setInterval(matrixEffect, 50);
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = 'rgba(255,204,102,0.05)';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      for (let i = 0; i < lines.length; i++) {
+        let l = lines[i];
+        ctx.moveTo(l.x, l.y);
+        ctx.lineTo(l.x + l.l * l.xs, l.y + l.l * l.ys);
+      }
+      ctx.stroke();
+      move();
+    }
+
+    function move() {
+      for (let i = 0; i < lines.length; i++) {
+        let l = lines[i];
+        l.x += l.xs;
+        l.y += l.ys;
+        if (l.x > canvas.width || l.x < 0 || l.y > canvas.height || l.y < 0) {
+          l.x = Math.random() * canvas.width;
+          l.y = Math.random() * canvas.height;
+        }
+      }
+    }
+
+    setInterval(draw, 60);
   </script>
 </body>
 </html>
