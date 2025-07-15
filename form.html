@@ -1,0 +1,35 @@
+<form id="custom-subscribe-form">
+  <input type="email" id="subscriber-email" placeholder="Your email" required />
+  <button type="submit">Subscribe</button>
+</form>
+
+<script>
+document.getElementById('custom-subscribe-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById('subscriber-email').value;
+
+  try {
+    const response = await fetch('https://api.mailerlite.com/api/v2/groups/158251939323184407/subscribers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-MailerLite-ApiKey': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYWFlMzU5NDIxNzQ5NWI5ZjYwMTZmZDY0NjJmNjU1MmQ0ZTY4N2JmZDBjNTRiNmRhYzAwYWJlYWNkNzk5YzU4OTBlM2E3ZjlhYjg1YzM0OGMiLCJpYXQiOjE3NTI1ODc0NzkuMjExMTE1LCJuYmYiOjE3NTI1ODc0NzkuMjExMTE4LCJleHAiOjQ5MDgyNjEwNzkuMjA0NTE5LCJzdWIiOiIxNjM1MTk3Iiwic2NvcGVzIjpbXX0.EiOvHxCMeh07ezU-xR0Vg5HgpEEZcZipZCulCpP8SOZ2ByHdldT3oht47DoQ76VW7UJlM8hON5KI2m5Gj5foTMyjOR92zsu6z-5szyIAtJcS-IGgwEYdRmeALe8MzjExzSUHYCYFofbG5QjQI3iPnL81JCf8WoI1kB_a7DkGl1Xb2V4KGHMw1-SRLE1mQXxpz-UJZLheOOj25KdlxKI-q1eFwMz6ZlqV3SxB_DT-TU5lohx13S2rVJT9SbllkkCGEvUwUm2T7oTk_91CjlfNkUE9FNSbsHDOH_5hTM_5lSFAjD2nZkRpZ0578HYsGQJGacloZsZ7tMCagbJGzIYeTA-Jj1_LazefdN8V6th0r7WWiAxIzCJ2eI0wnhCpUeTMo4_-uV0xALJm98l_LVsV3-7E_udKQlL6TZOUVj45eqqt10fLg0110uEPPRp6Zw4OYGxKrfhSFahztqK7QjzINOKlnBVYYzFqadd9h0ihf1t-UgiY9KrmepqcsWq53sgoOvyrU0zXEcXuzqcaUplZs4ErYOTITzKdMIfIftfaDc1cX7QleQcFAmi_xlDIxyhMfIxroTRB334vmPCcJCqz-G9u98APX8h-sP1xfs8_svKrIQ_5pCgH29pLZhgCmdMj-CilO8RMoUfxesoyX6X5BzBei4thebrNOLkwoKh3Ok0'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    });
+
+    if (response.ok) {
+      alert("Thanks for subscribing!");
+    } else {
+      const errorData = await response.json();
+      alert("Subscription failed: " + errorData.error.message);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("There was an error processing your request.");
+  }
+});
+</script>
