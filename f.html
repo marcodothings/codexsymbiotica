@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>= MailerLite JSON API Test =</title>
+  <title>-MailerLite JSON API Test 2-</title>
   <style>
     body {
       background-color: #0e0e0e;
@@ -59,19 +58,21 @@
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYWFlMzU5NDIxNzQ5NWI5ZjYwMTZmZDY0NjJmNjU1MmQ0ZTY4N2JmZDBjNTRiNmRhYzAwYWJlYWNkNzk5YzU4OTBlM2E3ZjlhYjg1YzM0OGMiLCJpYXQiOjE3NTI1ODc0NzkuMjExMTE1LCJuYmYiOjE3NTI1ODc0NzkuMjExMTE4LCJleHAiOjQ5MDgyNjEwNzkuMjA0NTE5LCJzdWIiOiIxNjM1MTk3Iiwic2NvcGVzIjpbXX0.EiOvHxCMeh07ezU-xR0Vg5HgpEEZcZipZCulCpP8SOZ2ByHdldT3oht47DoQ76VW7UJlM8hON5KI2m5Gj5foTMyjOR92zsu6z-5szyIAtJcS-IGgwEYdRmeALe8MzjExzSUHYCYFofbG5QjQI3iPnL81JCf8WoI1kB_a7DkGl1Xb2V4KGHMw1-SRLE1mQXxpz-UJZLheOOj25KdlxKI-q1eFwMz6ZlqV3SxB_DT-TU5lohx13S2rVJT9SbllkkCGEvUwUm2T7oTk_91CjlfNkUE9FNSbsHDOH_5hTM_5lSFAjD2nZkRpZ0578HYsGQJGacloZsZ7tMCagbJGzIYeTA-Jj1_LazefdN8V6th0r7WWiAxIzCJ2eI0wnhCpUeTMo4_-uV0xALJm98l_LVsV3-7E_udKQlL6TZOUVj45eqqt10fLg0110uEPPRp6Zw4OYGxKrfhSFahztqK7QjzINOKlnBVYYzFqadd9h0ihf1t-UgiY9KrmepqcsWq53sgoOvyrU0zXEcXuzqcaUplZs4ErYOTITzKdMIfIftfaDc1cX7QleQcFAmi_xlDIxyhMfIxroTRB334vmPCcJCqz-G9u98APX8h-sP1xfs8_svKrIQ_5pCgH29pLZhgCmdMj-CilO8RMoUfxesoyX6X5BzBei4thebrNOLkwoKh3Ok0' // <-- IMPORTANT: Bearer token now
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYWFlMzU5NDIxNzQ5NWI5ZjYwMTZmZDY0NjJmNjU1MmQ0ZTY4N2JmZDBjNTRiNmRhYzAwYWJlYWNkNzk5YzU4OTBlM2E3ZjlhYjg1YzM0OGMiLCJpYXQiOjE3NTI1ODc0NzkuMjExMTE1LCJuYmYiOjE3NTI1ODc0NzkuMjExMTE4LCJleHAiOjQ5MDgyNjEwNzkuMjA0NTE5LCJzdWIiOiIxNjM1MTk3Iiwic2NvcGVzIjpbXX0.EiOvHxCMeh07ezU-xR0Vg5HgpEEZcZipZCulCpP8SOZ2ByHdldT3oht47DoQ76VW7UJlM8hON5KI2m5Gj5foTMyjOR92zsu6z-5szyIAtJcS-IGgwEYdRmeALe8MzjExzSUHYCYFofbG5QjQI3iPnL81JCf8WoI1kB_a7DkGl1Xb2V4KGHMw1-SRLE1mQXxpz-UJZLheOOj25KdlxKI-q1eFwMz6ZlqV3SxB_DT-TU5lohx13S2rVJT9SbllkkCGEvUwUm2T7oTk_91CjlfNkUE9FNSbsHDOH_5hTM_5lSFAjD2nZkRpZ0578HYsGQJGacloZsZ7tMCagbJGzIYeTA-Jj1_LazefdN8V6th0r7WWiAxIzCJ2eI0wnhCpUeTMo4_-uV0xALJm98l_LVsV3-7E_udKQlL6TZOUVj45eqqt10fLg0110uEPPRp6Zw4OYGxKrfhSFahztqK7QjzINOKlnBVYYzFqadd9h0ihf1t-UgiY9KrmepqcsWq53sgoOvyrU0zXEcXuzqcaUplZs4ErYOTITzKdMIfIftfaDc1cX7QleQcFAmi_xlDIxyhMfIxroTRB334vmPCcJCqz-G9u98APX8h-sP1xfs8_svKrIQ_5pCgH29pLZhgCmdMj-CilO8RMoUfxesoyX6X5BzBei4thebrNOLkwoKh3Ok0' // <-- use your MailerLite API Key here
           },
           body: JSON.stringify({
             email: email,
-            groups: ['158251939323184407'] // group(s) to assign the user to
+            groups: ['158251939323184407'] // this must be the actual group UUID
           })
         });
+
+        const result = await response.json();
 
         if (response.ok) {
           alert("Thanks for subscribing!");
         } else {
-          const errorData = await response.json();
-          alert("Subscription failed: " + (errorData.message || JSON.stringify(errorData)));
+          console.error("Subscription failed:", result);
+          alert("Subscription failed: " + (result.message || JSON.stringify(result)));
         }
       } catch (error) {
         console.error("Error:", error);
@@ -82,3 +83,4 @@
 
 </body>
 </html>
+
