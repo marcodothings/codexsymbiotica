@@ -1052,6 +1052,46 @@ document.querySelectorAll('form').forEach(form => {
   
 <div id="termsModal" class="modal"> ... </div>
 <div id="privacyModal" class="modal"> ... </div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("codex-form-en");
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = form.querySelector("input[name='fields[email]']").value;
+    const name = form.querySelector("input[name='fields[name]']").value;
+
+    const script = document.createElement("script");
+    const callbackName = "ml_callback_" + Date.now();
+
+    window[callbackName] = function (response) {
+      if (response && response.success) {
+        form.innerHTML = `
+          <div class="ml-form-successBody row-success" style="text-align: center; color: #d4af37;">
+            <h4>Thank you!</h4>
+            <p>You’ve successfully subscribed.</p>
+          </div>`;
+      } else {
+        alert("There was a problem. Please try again.");
+      }
+
+      delete window[callbackName];
+      script.remove();
+    };
+
+    const url = `https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe?fields[email]=${encodeURIComponent(email)}&fields[name]=${encodeURIComponent(name)}&ml-submit=1&anticsrf=true&callback=${callbackName}`;
+    
+    script.src = url;
+    document.body.appendChild(script);
+  });
+});
+</script>
+
   
 </body>
 </html>
