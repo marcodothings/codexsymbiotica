@@ -384,9 +384,8 @@
           <h4 style="margin-block-start: 0.5em; margin-block-end: 0.5em; color: #d4af37; font-size: 24px; font-family: 'Montserrat', sans-serif;">Codex Symbiotica</h4>
           <p style="color: #d4af37cc; font-size: 14px;">Subscribe to the future — updates, events, revelations.</p>
         </div>
-        <form id="codex-form-en" class="ml-block-form"
-  action="https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe"
-  method="post">
+        <form id="codex-form-en" class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe" method="post" novalidate>
+
           <div class="ml-form-formContent">
             <div class="ml-form-fieldRow">
               <input type="email" name="fields[email]" placeholder="Your email" required
@@ -446,9 +445,8 @@
           <h4 style="margin-block-start: 0.5em; margin-block-end: 0.5em; color: #d4af37; font-size: 24px; font-family: 'Montserrat', sans-serif;">Codex Symbiotica</h4>
           <p style="color: #d4af37cc; font-size: 14px;">Subscribe to the future — updates, events, revelations.</p>
         </div>
-        <form id="codex-form-en" class="ml-block-form"
-  action="https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe"
-  method="post">
+        <form id="codex-form-en" class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe" method="post" novalidate>
+
           <div class="ml-form-formContent">
             <div class="ml-form-fieldRow">
               <input type="email" name="fields[email]" placeholder="Your email" required
@@ -1064,14 +1062,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("codex-form-en");
   if (!form) return;
 
+  // Intercept submit with full defense
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    e.stopImmediatePropagation(); // block other rogue submit triggers
 
-    const email = form.querySelector("input[name='fields[email]']").value;
-    const name = form.querySelector("input[name='fields[name]']").value;
-    const action = form.getAttribute("action"); // ✅ Dynamic endpoint
+    const emailInput = form.querySelector("input[name='fields[email]']");
+    const nameInput = form.querySelector("input[name='fields[name]']");
+    const email = emailInput?.value.trim();
+    const name = nameInput?.value.trim();
+    const action = form.getAttribute("action");
+
+    if (!email) {
+      alert("Please enter your email.");
+      return;
+    }
 
     const callbackName = "ml_callback_" + Date.now();
+
     window[callbackName] = function (response) {
       if (response && response.success) {
         form.innerHTML = `
