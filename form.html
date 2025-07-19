@@ -401,8 +401,7 @@
           <input type="hidden" name="ml-submit" value="1" />
           <input type="hidden" name="anticsrf" value="true" />
           <div class="ml-form-embedSubmit" style="margin-top: 15px;">
-           <button type="submit" class="btn-primary">Join Now</button>
-
+            <button type="button" class="btn-primary" onclick="submitCodexForm()">Join Now</button>
           </div>
         </form>
       </div>
@@ -462,8 +461,7 @@
           <input type="hidden" name="ml-submit" value="1" />
           <input type="hidden" name="anticsrf" value="true" />
           <div class="ml-form-embedSubmit" style="margin-top: 15px;">
-           <button type="submit" class="btn-primary">Join Now</button>
-
+            <button type="button" class="btn-primary" onclick="submitCodexForm()">Join Now</button>
           </div>
         </form>
       </div>
@@ -1056,50 +1054,36 @@ document.querySelectorAll('form').forEach(form => {
 <div id="privacyModal" class="modal"> ... </div>
 
 
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+function submitCodexForm() {
   const form = document.getElementById("codex-form-en");
   if (!form) return;
 
-  // Intercept submit with full defense
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation(); // block other rogue submit triggers
+  const email = form.querySelector("input[name='fields[email]']").value.trim();
+  const name = form.querySelector("input[name='fields[name]']").value.trim();
+  const action = form.getAttribute("action");
+  const callbackName = "ml_callback_" + Date.now();
 
-    const emailInput = form.querySelector("input[name='fields[email]']");
-    const nameInput = form.querySelector("input[name='fields[name]']");
-    const email = emailInput?.value.trim();
-    const name = nameInput?.value.trim();
-    const action = form.getAttribute("action");
-
-    if (!email) {
-      alert("Please enter your email.");
-      return;
+  window[callbackName] = function (response) {
+    if (response && response.success) {
+      form.innerHTML = `
+        <div class="ml-form-successBody row-success" style="text-align: center; color: #d4af37;">
+          <h4>Thank you!</h4>
+          <p>You’ve successfully subscribed.</p>
+        </div>`;
+    } else {
+      alert("There was a problem. Please try again.");
     }
+    delete window[callbackName];
+  };
 
-    const callbackName = "ml_callback_" + Date.now();
-
-    window[callbackName] = function (response) {
-      if (response && response.success) {
-        form.innerHTML = `
-          <div class="ml-form-successBody row-success" style="text-align: center; color: #d4af37;">
-            <h4>Thank you!</h4>
-            <p>You’ve successfully subscribed.</p>
-          </div>`;
-      } else {
-        alert("There was a problem. Please try again.");
-      }
-
-      delete window[callbackName];
-    };
-
-    const script = document.createElement("script");
-    script.src = `${action}?fields[email]=${encodeURIComponent(email)}&fields[name]=${encodeURIComponent(name)}&ml-submit=1&anticsrf=true&callback=${callbackName}`;
-    document.body.appendChild(script);
-  });
-});
+  const script = document.createElement("script");
+  script.src = `${action}?fields[email]=${encodeURIComponent(email)}&fields[name]=${encodeURIComponent(name)}&ml-submit=1&anticsrf=true&callback=${callbackName}`;
+  document.body.appendChild(script);
+}
 </script>
+
+
 
   
 </body>
