@@ -158,6 +158,33 @@ third book Codex Symbiotica project
   pointer-events: none;
 }
 
+
+    .project-logo-wrapper {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.project-logo {
+  width: 140px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.75);
+}
+
+@media (max-width: 600px) {
+  .project-logo {
+    width: 110px;
+  }
+}
+
+
     /* Main container */
     .container {
       position: relative;
@@ -520,6 +547,10 @@ third book Codex Symbiotica project
   <main class="container" role="main">
     <!-- ENGLISH CONTENT -->
     <section id="content-en" class="lang-content active" lang="en">
+      <div class="project-logo-wrapper">
+      <img src="/assets/CSProject.png" alt="Codex Symbiotica Project Logo" class="project-logo">
+      </div>
+
       <header>
         <h1>The Codex Symbiotica Project</h1>
         <p class="hero-subtitle">
