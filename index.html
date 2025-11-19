@@ -1312,8 +1312,7 @@ third book Codex Symbiotica project
 
 
 
-
-// LIGHTWEIGHT CIRCUIT GLIMMER (CPU friendly)
+// ELEGANT CIRCUIT ANIMATION (balanced performance)
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
 
@@ -1323,13 +1322,20 @@ let dpr = 1;
 
 let nodes = [];
 let edges = [];
+let pulses = [];
 
+// PARAMETERS: tune here if needed
+const NODE_COUNT_TARGET = 60;     // how many points in the network
+const PULSE_COUNT_TARGET = 10;    // how many moving pulses
+const NODE_RADIUS = 2.6;
+
+// Node in the circuit
 class Node {
   constructor(x, y) {
-    this.x = x + (Math.random() - 0.5) * 10;   // slight jitter
-    this.y = y + (Math.random() - 0.5) * 10;
+    this.x = x + (Math.random() - 0.5) * 16;   // slight jitter
+    this.y = y + (Math.random() - 0.5) * 16;
     this.phase = Math.random() * Math.PI * 2;
-    this.speed = 0.0007 + Math.random() * 0.0008;
+    this.speed = 0.0008 + Math.random() * 0.0012;
   }
 
   update(delta) {
@@ -1338,10 +1344,11 @@ class Node {
 
   getAlpha() {
     const t = (Math.sin(this.phase) + 1) / 2; // 0..1
-    return 0.25 + t * 0.25;                  // 0.25..0.5
+    return 0.3 + t * 0.35;                   // 0.3..0.65
   }
 }
 
+// Edge linking two nodes
 class Edge {
   constructor(a, b) {
     this.a = a;
@@ -1349,45 +1356,30 @@ class Edge {
   }
 }
 
-function setupScene() {
-  nodes = [];
-  edges = [];
+// Pulse moving along an edge
+class Pulse {
+  constructor(edge, speed) {
+    this.edge = edge;
+    this.speed = speed;
+    this.t = Math.random(); // position 0..1
+  }
 
-  // Small logical grid, always lightweight
-  const cols = Math.max(8, Math.round(width / 200));
-  const rows = Math.max(5, Math.round(height / 160));
-  const dx = width / (cols + 1);
-  const dy = height / (rows + 1);
-
-  const grid = [];
-
-  for (let gy = 0; gy < rows; gy++) {
-    for (let gx = 0; gx < cols; gx++) {
-      const x = dx * (gx + 1);
-      const y = dy * (gy + 1);
-      const node = new Node(x, y);
-      nodes.push(node);
-      grid.push(node);
+  update(delta) {
+    this.t += this.speed * delta;
+    if (this.t > 1) {
+      this.t -= 1;
     }
   }
 
-  // Simple horizontal/vertical connections
-  for (let gy = 0; gy < rows; gy++) {
-    for (let gx = 0; gx < cols; gx++) {
-      const idx = gy * cols + gx;
-      const node = grid[idx];
-      if (!node) continue;
+  draw(ctx) {
+    const { a, b } = this.edge;
+    const x = a.x + (b.x - a.x) * this.t;
+    const y = a.y + (b.y - a.y) * this.t;
 
-      const right = grid[gy * cols + (gx + 1)];
-      const down = grid[(gy + 1) * cols + gx];
-
-      if (right && Math.random() < 0.9) {
-        edges.push(new Edge(node, right));
-      }
-      if (down && Math.random() < 0.9) {
-        edges.push(new Edge(node, down));
-      }
-    }
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.95)';
+    ctx.arc(x, y, NODE_RADIUS + 1.6, 0, Math.PI * 2);
+    ctx.fill();
   }
 }
 
@@ -1395,7 +1387,7 @@ function resizeCanvas() {
   width = window.innerWidth;
   height = window.innerHeight;
 
-  dpr = Math.min(window.devicePixelRatio || 1, 1.5); // avoid 3x scaling on Retina
+  dpr = Math.min(window.devicePixelRatio || 1, 1.5); // cap to avoid heavy scaling
   canvas.width = width * dpr;
   canvas.height = height * dpr;
   canvas.style.width = width + 'px';
@@ -1407,6 +1399,79 @@ function resizeCanvas() {
   setupScene();
 }
 
+function setupScene() {
+  nodes = [];
+  edges = [];
+  pulses = [];
+
+  // 1. Distribute nodes in a loose grid, then reduce to NODE_COUNT_TARGET
+  const cols = Math.max(8, Math.round(width / 200));
+  const rows = Math.max(5, Math.round(height / 180));
+  const dx = width / (cols + 1);
+  const dy = height / (rows + 1);
+
+  for (let gy = 0; gy < rows; gy++) {
+    for (let gx = 0; gx < cols; gx++) {
+      nodes.push(new Node(dx * (gx + 1), dy * (gy + 1)));
+    }
+  }
+
+  // If too many nodes, randomly downsample to the target
+  if (nodes.length > NODE_COUNT_TARGET) {
+    nodes = shuffle(nodes).slice(0, NODE_COUNT_TARGET);
+  }
+
+  // 2. Build edges by connecting each node to its nearest neighbors
+  const neighborCount = 3; // how many neighbors per node
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+
+    const distances = [];
+    for (let j = 0; j < nodes.length; j++) {
+      if (i === j) continue;
+      const other = nodes[j];
+      const dx = node.x - other.x;
+      const dy = node.y - other.y;
+      const dist2 = dx * dx + dy * dy;
+      distances.push({ node: other, dist2 });
+    }
+
+    distances.sort((a, b) => a.dist2 - b.dist2);
+    const neighbors = distances.slice(0, neighborCount);
+
+    for (const n of neighbors) {
+      if (!edgeExists(node, n.node)) {
+        edges.push(new Edge(node, n.node));
+      }
+    }
+  }
+
+  // 3. Create pulses on a subset of edges
+  const usableEdges = edges.slice();
+  shuffle(usableEdges);
+
+  const pulseCount = Math.min(PULSE_COUNT_TARGET, usableEdges.length);
+  for (let i = 0; i < pulseCount; i++) {
+    const edge = usableEdges[i];
+    const speed = 0.0004 + Math.random() * 0.0009; // tune speed here
+    pulses.push(new Pulse(edge, speed));
+  }
+}
+
+function edgeExists(a, b) {
+  return edges.some(e =>
+    (e.a === a && e.b === b) || (e.a === b && e.b === a)
+  );
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 let lastTime = performance.now();
 
 function render(time) {
@@ -1415,31 +1480,37 @@ function render(time) {
 
   ctx.clearRect(0, 0, width, height);
 
-  // Update node phases
+  // Update node phases and pulses
   for (const node of nodes) {
     node.update(delta);
   }
+  for (const pulse of pulses) {
+    pulse.update(delta);
+  }
 
-  // Draw edges first (very faint)
+  // Draw edges first (faint)
   ctx.lineWidth = 1;
   ctx.lineCap = 'round';
   for (const edge of edges) {
-    const a = edge.a;
-    const b = edge.b;
     ctx.beginPath();
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.18)';
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
+    ctx.moveTo(edge.a.x, edge.a.y);
+    ctx.lineTo(edge.b.x, edge.b.y);
     ctx.stroke();
   }
 
-  // Draw nodes on top (soft glow, but no heavy shadows)
+  // Draw nodes (small glow through alpha only)
   for (const node of nodes) {
     const alpha = node.getAlpha();
     ctx.beginPath();
     ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
-    ctx.arc(node.x, node.y, 2.6, 0, Math.PI * 2);
+    ctx.arc(node.x, node.y, NODE_RADIUS, 0, Math.PI * 2);
     ctx.fill();
+  }
+
+  // Draw pulses on top
+  for (const pulse of pulses) {
+    pulse.draw(ctx);
   }
 
   requestAnimationFrame(render);
@@ -1449,6 +1520,7 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 requestAnimationFrame(render);
 
+    
 
     // MODALS
     function openModal(id) {
