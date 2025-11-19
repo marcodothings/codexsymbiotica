@@ -1357,12 +1357,37 @@ class Pulse {
     this.endNode = endNode;
     this.speed = speed;
     this.progress = Math.random(); // 0..1
+    this.hops = 0;
   }
 
   update(delta) {
     this.progress += this.speed * delta;
-    if (this.progress > 1) {
+
+    if (this.progress >= 1) {
+      // We arrived at the end node
+      this.startNode = this.endNode;
       this.progress -= 1;
+      this.hops++;
+
+      const neighbors = this.startNode.neighbors || [];
+
+      // If no neighbors, respawn somewhere else
+      if (!neighbors.length) {
+        const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
+        const randomNeighbors = randomNode.neighbors || [];
+        if (randomNeighbors.length) {
+          this.startNode = randomNode;
+          this.endNode = randomNeighbors[Math.floor(Math.random() * randomNeighbors.length)];
+        }
+      } else {
+        // Pick a random neighbor as the new end node
+        this.endNode = neighbors[Math.floor(Math.random() * neighbors.length)];
+      }
+
+      // Every few hops, randomize speed a bit to avoid patterns
+      if (this.hops % 4 === 0) {
+        this.speed = 0.0005 + Math.random() * 0.001;
+      }
     }
   }
 
@@ -1372,10 +1397,11 @@ class Pulse {
 
     ctx.beginPath();
     ctx.fillStyle = 'rgba(212, 175, 55, 0.95)';
-    ctx.arc(x, y, NODE_RADIUS + 1.5, 0, Math.PI * 2);
+    ctx.arc(x, y, NODE_RADIUS + 1.6, 0, Math.PI * 2);
     ctx.fill();
   }
 }
+
 
 function resizeCanvas() {
   width = window.innerWidth;
