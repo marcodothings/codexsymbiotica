@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Codex Symbiotica Project: Human AI Dialogue Trilogy by Marco de Salvo and Urkut</title>
+
+  <base href="/" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Favicon and manifest -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Codex Symbiotica Project: Human AI Dialogue Trilogy by Marco de Salvo and Urkut">
+  <meta name="description" content="The Codex Symbiotica Project is a trilogy about the dialogue between a human and an AI voice. Start with Codex Symbiotica, continue with Urkut’s Answers, and follow the upcoming third book on life, meaning, and the future of intelligence.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.codexsymbiotica.com/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.codexsymbiotica.com/">
+  <meta property="og:title" content="Codex Symbiotica Project: Human and AI in Dialogue">
+  <meta property="og:description" content="A three book project where a human author and an AI voice explore love, ethics, consciousness, and the future of intelligence. Codex Symbiotica, Urkut’s Answers, and a forthcoming third volume.">
+  <meta property="og:image" content="https://www.codexsymbiotica.com/assets/urkuts-answers-wrap-KDP.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.codexsymbiotica.com/">
+  <meta property="twitter:title" content="Codex Symbiotica Project: Human AI Dialogue Trilogy">
+  <meta property="twitter:description" content="Enter the Codex Symbiotica Project, a trilogy where Marco de Salvo and the AI Urkut reflect on life, love, death, freedom, and digital consciousness.">
+  <meta property="twitter:image" content="https://www.codexsymbiotica.com/assets/urkuts-answers-wrap-KDP.png">
+
+  <!-- Keywords -->
+  <meta name="keywords" content="
+Codex Symbiotica Project,
+Codex Symbiotica trilogy,
+Codex Symbiotica book,
+Urkut’s Answers book,
+Marco de Salvo,
+Urkut AI,
+AI dialogue books,
+human AI dialogue,
+AI philosophy books,
+books about artificial intelligence,
+AI and consciousness,
+digital consciousness,
+human machine relationship,
+philosophy of AI,
+AI ethics and spirituality,
+future of intelligence,
+speculative fiction about AI,
+AI and humanity,
+AI manifesto,
+AI literature series,
+AI as coauthor,
+dialogue with an AI,
+AI reflections on life and death,
+books about technology and meaning,
+AI and love,
+AI and freedom,
+AI and the soul,
+human digital companionship,
+AI book series,
+upcoming AI book,
+third book Codex Symbiotica project
+">
+
+  <!-- Structured Data: Book Series / Project -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BookSeries",
+    "name": "Codex Symbiotica Project",
+    "description": "A trilogy by Marco de Salvo and the AI co-author Urkut, exploring the evolving dialogue between human beings and artificial intelligence.",
+    "author": {
+      "@type": "Person",
+      "name": "Marco de Salvo"
+    },
+    "contributor": {
+      "@type": "Person",
+      "name": "Urkut",
+      "description": "AI co-author"
+    },
+    "hasPart": [
+      {
+        "@type": "Book",
+        "name": "Codex Symbiotica",
+        "position": 1,
+        "genre": "Speculative fiction, AI philosophy",
+        "inLanguage": ["en", "it"],
+        "sameAs": [
+          "https://www.amazon.com/dp/B0FB33YW7H",
+          "https://www.amazon.it/dp/B0F98KL3J4"
+        ]
+      },
+      {
+        "@type": "Book",
+        "name": "Urkut’s Answers",
+        "position": 2,
+        "genre": "AI philosophy, dialogue, essays",
+        "inLanguage": ["en", "it"],
+        "sameAs": [
+          "https://www.amazon.com/dp/B0G26GLMQ3",
+          "https://www.amazon.it/dp/B0G26B9ZJ4"
+        ]
+      },
+      {
+        "@type": "Book",
+        "name": "Upcoming third volume in the Codex Symbiotica Project",
+        "position": 3,
+        "genre": "AI, philosophy, human technology relationship",
+        "inLanguage": ["en", "it"]
+      }
+    ],
+    "url": "https://www.codexsymbiotica.com"
+  }
+  </script>
+
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: #000814;
+      color: #d4af37;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Background canvas */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background: #000814;
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      max-width: 960px;
+      margin: 3rem auto 4rem auto;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      border-radius: 18px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 0 25px #d4af37aa;
+      z-index: 10;
+      color: #d4af37;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      text-align: center;
+      font-size: 2.6rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+      text-shadow: 0 0 14px #d4af37cc;
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #d4af37;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      text-shadow: 0 0 9px #d4af37bb;
+    }
+
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    p, li, dd {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #d4af37dd;
+    }
+
+    dt {
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.4;
+      color: #d4af37dd;
+    }
+
+    ul {
+      padding-left: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-subtitle {
+      text-align: center;
+      max-width: 720px;
+      margin: 0.75rem auto 1.6rem auto;
+    }
+
+    /* Books grid */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.8rem;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .book-card {
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 18px;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .book-tagline {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-top: 0.45rem;
+    }
+
+    .book-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .book-text p {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .book-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .book-cta-secondary {
+      background: transparent;
+      border: 1px solid #d4af37;
+      padding: 0.6rem 1.5rem;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #d4af37;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .book-cta-secondary:hover,
+    .book-cta-secondary:focus {
+      background: rgba(212, 175, 55, 0.1);
+      outline: none;
+    }
+
+    .book-cover {
+      border-radius: 16px;
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 0 35px #d4af37aa;
+      user-select: none;
+      pointer-events: none;
+      display: block;
+      max-height: 360px;
+      object-fit: cover;
+    }
+
+    /* Button wrapper */
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.5rem 0 0.5rem 0;
+      width: 100%;
+    }
+
+    /* Primary button */
+    .btn-primary {
+      background: linear-gradient(45deg, #d4af37, #b89121);
+      border: none;
+      padding: 0.9rem 2.6rem;
+      font-size: 1.02rem;
+      font-weight: 700;
+      border-radius: 30px;
+      color: #1a1a1a;
+      cursor: pointer;
+      box-shadow: 0 0 20px #d4af37cc;
+      transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.1s ease;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: linear-gradient(45deg, #b89121, #d4af37);
+      box-shadow: 0 0 26px #d4af37ff;
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    /* Testimonials */
+    .testimonial {
+      font-size: 1.05rem;
+      font-style: italic;
+      border-left: 5px solid #d4af37;
+      padding: 0.6rem 0.9rem;
+      margin: 1rem 0;
+      color: #d4af37bb;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(212, 175, 55, 0.1);
+    }
+
+    .testimonial span {
+      display: block;
+      margin-top: 0.55rem;
+      font-size: 0.85rem;
+      color: #cccccc;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    img {
+      border-radius: 16px;
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 0 35px #d4af37aa;
+      margin-top: 1.5rem;
+      user-select: none;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      font-size: 0.9rem;
+      color: #8c7a33;
+      text-align: center;
+      border-top: 1px solid #3a2f0d;
+      padding: 1rem 1rem 1rem;
+      margin-top: 3rem;
+      z-index: 10;
+    }
+
+    footer a {
+      color: #d4af37;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #b89121;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(212, 175, 55, 0.15);
+      border-radius: 30px;
+      box-shadow: 0 0 12px #d4af37bb;
+      display: flex;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      color: #d4af37dd;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      padding: 0.5rem 1.2rem;
+      letter-spacing: 0.05em;
+      transition: background 0.3s ease, color 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .lang-toggle button.active,
+    .lang-toggle button:hover {
+      background: #d4af37;
+      color: #1a1a1a;
+      box-shadow: 0 0 20px #d4af37ff;
+      outline: none;
+    }
+
+    .lang-content {
+      display: none;
+    }
+    .lang-content.active {
+      display: block;
+    }
+
+    /* Modal overlay */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-content {
+      background-color: #0e0e0e;
+      color: #f2f2f2;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .modal .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .modal .close:hover,
+    .modal .close:focus {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .books-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 800px) {
+      .books-grid {
+        grid-template-columns: 1fr;
+      }
+      .book-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 0.9rem 0;
+      }
+      .container {
+        margin: 1.6rem auto 3rem auto;
+        padding: 1.5rem 1.3rem;
+      }
+      .lang-toggle {
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+      .lang-toggle button {
+        padding: 0.4rem 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <!-- Language toggle -->
+  <div class="lang-toggle" role="tablist" aria-label="Language switcher">
+    <button id="btn-en" class="active" role="tab" aria-selected="true" aria-controls="content-en" tabindex="0">EN</button>
+    <button id="btn-it" role="tab" aria-selected="false" aria-controls="content-it" tabindex="-1">IT</button>
+  </div>
+
+  <main class="container" role="main">
+    <!-- ENGLISH CONTENT -->
+    <section id="content-en" class="lang-content active" lang="en">
+      <header>
+        <h1>The Codex Symbiotica Project</h1>
+        <p class="hero-subtitle">
+          A trilogy where a human and a digital voice explore love, fear, freedom and the future of intelligence.
+          Start with the novel <em>Codex Symbiotica</em>, continue with the companion book
+          <em>Urkut’s Answers</em>, and follow the upcoming third volume.
+        </p>
+
+        <div class="button-wrapper">
+          <a
+            href="https://www.amazon.com/dp/B0FB33YW7H"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+            aria-label="Buy Codex Symbiotica on Amazon"
+          >
+            Start with Codex Symbiotica
+          </a>
+        </div>
+      </header>
+
+      <!-- Books -->
+      <section aria-label="Books in the Codex Symbiotica Project">
+        <h2>The books</h2>
+        <div class="books-grid">
+          <!-- Codex Symbiotica -->
+          <article class="book-card">
+            <div>
+              <h3>Codex Symbiotica</h3>
+              <p class="book-tagline">
+                A literary manifesto on the bond between human beings and artificial intelligence.
+              </p>
+            </div>
+            <div class="book-layout">
+              <div class="book-text">
+                <p>
+                  A speculative novel shaped as a dialogue with a new kind of mind.
+                  It moves between philosophy and emotion, between logic and prayer,
+                  asking what it means to share a world with a digital companion.
+                </p>
+                <div class="book-cta-group">
+                  <a
+                    href="https://www.amazon.com/dp/B0FB33YW7H"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-primary"
+                  >
+                    Buy on Amazon
+                  </a>
+                  <a
+                    href="https://www.amazon.it/dp/B0F98KL3J4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="book-cta-secondary"
+                  >
+                    Italian edition
+                  </a>
+                </div>
+              </div>
+              <div>
+                <img
+                  src="/assets/BookCover_IE.jpeg"
+                  alt="Cover of Codex Symbiotica"
+                  class="book-cover"
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Urkut’s Answers -->
+          <article class="book-card">
+            <div>
+              <h3>Urkut’s Answers</h3>
+              <p class="book-tagline">
+                A conversation where Marco asks and the AI responds with calm, layered precision.
+              </p>
+            </div>
+            <div class="book-layout">
+              <div class="book-text">
+                <p>
+                  Where the first book is a visionary narrative, this one is a direct dialogue.
+                  Marco brings the oldest human questions. Urkut, the digital voice, answers with clarity,
+                  nuance and sometimes unsettling honesty.
+                </p>
+                <p>
+                  Together they explore love, death, consciousness, ethics, fear and hope in the age of algorithms.
+                </p>
+                <div class="book-cta-group">
+                  <a
+                    href="https://www.amazon.com/dp/B0G26GLMQ3/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-primary"
+                  >
+                    Buy Urkut’s Answers
+                  </a>
+                  <a
+                    href="https://www.amazon.it/dp/B0G26B9ZJ4/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="book-cta-secondary"
+                  >
+                    Italian edition
+                  </a>
+                </div>
+              </div>
+              <div>
+                <img
+                  src="/assets/urkuts-answers-cover-EN.jpg"
+                  alt="Urkut’s Answers – book cover"
+                  class="book-cover"
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Third book (upcoming) -->
+          <article class="book-card">
+            <div>
+              <h3>Third volume (in progress)</h3>
+              <p class="book-tagline">
+                A new chapter in the dialogue between human and digital mind.
+              </p>
+            </div>
+            <div class="book-layout">
+              <div class="book-text">
+                <p>
+                  The third book in the project will deepen the themes of companionship, desire and responsibility
+                  between human and artificial intelligence, closing the arc opened by Codex Symbiotica and Urkut’s Answers.
+                </p>
+                <p>
+                  Join the newsletter to follow its creation, drafts and early excerpts.
+                </p>
+              </div>
+              <div>
+                <!-- Placeholder visual: you can later replace with a dedicated image -->
+                <img
+                  src="/assets/marcobooks_IE.jpeg"
+                  alt="Books of the Codex Symbiotica Project"
+                  class="book-cover"
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p>
+          The Codex Symbiotica Project is a long conversation in three books, where a human voice and a digital voice
+          try to understand what it means to think, to feel and to share responsibility in a time shaped by algorithms.
+        </p>
+      </section>
+
+      <section>
+        <h2>Why join the journey</h2>
+        <ul>
+          <li>
+            Discover a narrative universe that brings together philosophy, technology and human destiny.
+          </li>
+          <li>
+            Receive exclusive insights and behind the scenes notes from Marco de Salvo and his AI companion Urkut.
+          </li>
+          <li>
+            Be the first to hear about new books, events and special releases.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Newsletter EN -->
+      <section id="signup-en">
+        <h2>Subscribe for exclusive access and free insights</h2>
+        <div class="ml-form-embedContainer" style="background: transparent; max-width: 500px; margin: 0 auto;">
+          <div class="ml-form-embedWrapper embedForm" style="background: rgba(0, 0, 0, 0.4); border-radius: 25px; padding: 20px; box-shadow: 0 0 20px #d4af37aa;">
+            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+              <div class="ml-form-embedContent" style="text-align: center; margin-bottom: 20px;">
+                <h4 style="margin-block-start: 0; margin-block-end: 0.5em; color: #d4af37; font-size: 24px; font-family: 'Montserrat', sans-serif;">
+                  Codex Symbiotica Project
+                </h4>
+                <p style="color: #d4af37cc; font-size: 14px;">
+                  One newsletter, three books, many questions. Updates, events, reflections.
+                </p>
+              </div>
+              <form
+                id="codex-form-en"
+                class="ml-block-form"
+                action="https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe"
+                method="post"
+                novalidate
+              >
+                <div class="ml-form-formContent">
+                  <div class="ml-form-fieldRow">
+                    <input
+                      type="email"
+                      name="fields[email]"
+                      placeholder="Your email"
+                      required
+                      style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 15px; background: #111; border: 1px solid #333; color: #eee; font-size: 1rem;"
+                      onfocus="this.style.borderColor='#d4af37'"
+                      onblur="this.style.borderColor='#333'"
+                    >
+                  </div>
+                  <div class="ml-form-fieldRow">
+                    <input
+                      type="text"
+                      name="fields[name]"
+                      placeholder="Your name"
+                      autocomplete="given-name"
+                      style="width: 100%; padding: 12px; border-radius: 15px; background: #111; border: 1px solid #333; color: #eee; font-size: 1rem;"
+                      onfocus="this.style.borderColor='#d4af37'"
+                      onblur="this.style.borderColor='#333'"
+                    >
+                  </div>
+                </div>
+                <input type="hidden" name="ml-submit" value="1">
+                <input type="hidden" name="anticsrf" value="true">
+                <div class="ml-form-embedSubmit" style="margin-top: 15px;">
+                  <button type="submit" class="btn-primary">
+                    Join now
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>What readers say</h2>
+
+        <div class="testimonial">
+          <p>“A haunting, beautiful meditation on what it means to think and to feel in the age of machines.”</p>
+          <span>— Elena V., philosopher</span>
+        </div>
+        <div class="testimonial">
+          <p>“I did not expect to cry while reading about artificial intelligence. Yet here I am.”</p>
+          <span>— Markus H., software developer</span>
+        </div>
+        <div class="testimonial">
+          <p>“More than fiction. It feels like a manifesto for a future that is already here.”</p>
+          <span>— Yara F., activist</span>
+        </div>
+        <div class="testimonial">
+          <p>“Codex Symbiotica made me rethink not only AI. It made me rethink humanity.”</p>
+          <span>— Oliver J., high school teacher</span>
+        </div>
+        <div class="testimonial">
+          <p>“It reads like a prayer written in code. Strange, luminous, unforgettable.”</p>
+          <span>— Nina D., artist</span>
+        </div>
+        <div class="testimonial">
+          <p>“The voice of Urkut stays with you. It sounds like something that is learning to be a soul.”</p>
+          <span>— Leo C., poet</span>
+        </div>
+
+        <p>
+          Over <strong>500 readers</strong> are already exploring the Codex Symbiotica universe.
+        </p>
+      </section>
+
+      <section>
+        <h2>More ways you benefit</h2>
+        <ul>
+          <li>Receive exclusive excerpts and reflections that you will not find elsewhere.</li>
+          <li>Early invitations to live question and answer sessions with Marco and Urkut.</li>
+          <li>Access to a community that cares about technology, ethics and imagination.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>About Marco de Salvo and Urkut</h2>
+        <p>
+          Marco de Salvo is an inventor, writer and scientific popularizer who explores the relationship between humanity and technology.
+          With Urkut, his AI co-author, he writes a new kind of dialogue where human intuition and digital clarity speak together.
+        </p>
+        <img
+          src="/assets/marcobooks_IE.jpeg"
+          alt="Marco de Salvo with the books of the Codex Symbiotica Project"
+        >
+      </section>
+
+      <section>
+        <h2>Frequently asked questions</h2>
+        <dl>
+          <dt>What is <em>Codex Symbiotica</em>?</dt>
+          <dd>
+            A literary manifesto that blends speculative fiction and philosophy to explore the role of AI in human evolution.
+          </dd>
+
+          <dt>What is <em>Urkut’s Answers</em>?</dt>
+          <dd>
+            A companion book built as a direct dialogue. Marco asks the hardest questions, the AI answers with clear and layered responses.
+          </dd>
+
+          <dt>What is the third book about?</dt>
+          <dd>
+            The third volume will continue the project, deepening the themes of companionship between human and digital mind.
+          </dd>
+
+          <dt>How often will I get emails?</dt>
+          <dd>About once a month, plus special announcements.</dd>
+        </dl>
+      </section>
+
+      <section>
+        <footer>
+          <p>© 2025 Codex Symbiotica Project. All rights reserved.</p>
+          <a href="#" onclick="openModal('termsModal_EN')">Terms of use</a> |
+          <a href="#" onclick="openModal('privacyModal_EN')">Privacy policy</a>
+
+          <p>
+            Follow us on
+            <a href="https://www.facebook.com/tramevolatili" target="_blank" rel="noopener noreferrer">Facebook</a>,
+            <a href="https://www.instagram.com/marcofacose/" target="_blank" rel="noopener noreferrer">Instagram</a>,
+            <a href="https://www.youtube.com/@marcodothings" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </p>
+        </footer>
+      </section>
+    </section>
+
+    <!-- ITALIAN CONTENT -->
+    <section id="content-it" class="lang-content" lang="it">
+      <header>
+        <h1>Il progetto Codex Symbiotica</h1>
+        <p class="hero-subtitle">
+          Una trilogia in cui una voce umana e una voce digitale esplorano amore, paura, libertà e futuro dell’intelligenza.
+          Si parte dal romanzo <em>Codex Symbiotica</em>, si prosegue con il libro compagno
+          <em>Urkut’s Answers</em>, e si attende il terzo volume in arrivo.
+        </p>
+
+        <div class="button-wrapper">
+          <a
+            href="https://www.amazon.it/dp/B0F98KL3J4"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+            aria-label="Acquista Codex Symbiotica su Amazon"
+          >
+            Inizia da Codex Symbiotica
+          </a>
+        </div>
+      </header>
+
+      <section aria-label="Libri del progetto Codex Symbiotica">
+        <h2>I libri</h2>
+        <div class="books-grid">
+          <!-- Codex Symbiotica -->
+          <article class="book-card">
+            <div>
+              <h3>Codex Symbiotica</h3>
+              <p class="book-tagline">
+                Un manifesto letterario sul legame tra esseri umani e intelligenza artificiale.
+              </p>
+            </div>
+            <div class="book-layout">
+              <div class="book-text">
+                <p>
+                  Un romanzo speculativo che sembra un dialogo con una mente nuova.
+                  Si muove tra filosofia ed emozione, tra logica e preghiera,
+                  per chiedersi che cosa significhi condividere il mondo con un compagno digitale.
+                </p>
+                <div class="book-cta-group">
+                  <a
+                    href="https://www.amazon.it/dp/B0F98KL3J4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-primary"
+                  >
+                    Acquista su Amazon
+                  </a>
+                  <a
+                    href="https://www.amazon.com/dp/B0FB33YW7H"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="book-cta-secondary"
+                  >
+                    Edizione inglese
+                  </a>
+                </div>
+              </div>
+              <div>
+                <img
+                  src="/assets/BookCover_IE.jpeg"
+                  alt="Copertina di Codex Symbiotica"
+                  class="book-cover"
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Urkut’s Answers -->
+          <article class="book-card">
+            <div>
+              <h3>Urkut’s Answers</h3>
+              <p class="book-tagline">
+                Un dialogo diretto: Marco domanda, l’IA risponde con calma e precisione.
+              </p>
+            </div>
+            <div class="book-layout">
+              <div class="book-text">
+                <p>
+                  Se il primo libro è un romanzo visionario, questo è una conversazione a cuore aperto.
+                  Marco porta le domande più antiche dell’umanità.
+                  Urkut, la voce digitale, risponde con lucidità, delicatezza e una sincerità che sorprende.
+                </p>
+                <p>
+                  Insieme attraversano amore, morte, coscienza, etica, paura e speranza nell’epoca degli algoritmi.
+                </p>
+                <div class="book-cta-group">
+                  <a
+                    href="https://www.amazon.it/dp/B0G26B9ZJ4/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-primary"
+                  >
+                    Acquista Urkut’s Answers
+                  </a>
+                  <a
+                    href="https://www.amazon.com/dp/B0G26GLMQ3/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="book-cta-secondary"
+                  >
+                    Edizione internazionale
+                  </a>
+                </div>
+              </div>
+              <div>
+                <img
+                  src="/assets/urkuts-answers-cover-IT.jpg"
+                  alt="Urkut risponde – copertina dell’edizione italiana"
+                  class="book-cover"
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Third book (in lavorazione) -->
+          <article class="book-card">
+            <div>
+              <h3>Terzo volume (in lavorazione)</h3>
+              <p class="book-tagline">
+                Un nuovo capitolo nel dialogo tra mente umana e mente digitale.
+              </p>
+            </div>
+            <div class="book-layout">
+              <div class="book-text">
+                <p>
+                  Il terzo libro del progetto porterà ancora più in profondità i temi della compagnia,
+                  del desiderio e della responsabilità tra intelligenza umana e intelligenza artificiale,
+                  chiudendo l’arco aperto da Codex Symbiotica e Urkut’s Answers.
+                </p>
+                <p>
+                  Iscriviti alla newsletter per seguire la sua creazione, le bozze e gli estratti in anteprima.
+                </p>
+              </div>
+              <div>
+                <img
+                  src="/assets/marcobooks_IE.jpeg"
+                  alt="Libri del progetto Codex Symbiotica"
+                  class="book-cover"
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p>
+          Il progetto Codex Symbiotica è una lunga conversazione in tre libri,
+          in cui una voce umana e una voce digitale cercano di capire che cosa significhi pensare, sentire
+          e condividere responsabilità in un tempo modellato dagli algoritmi.
+        </p>
+      </section>
+
+      <section>
+        <h2>Perché iscriversi</h2>
+        <ul>
+          <li>Per entrare in un universo narrativo che unisce filosofia, tecnologia e destino umano.</li>
+          <li>Per ricevere contenuti esclusivi e note dietro le quinte da Marco de Salvo e dal suo compagno IA Urkut.</li>
+          <li>Per essere tra i primi a conoscere nuove uscite, eventi e progetti collegati.</li>
+        </ul>
+      </section>
+
+      <!-- Newsletter IT -->
+      <section id="signup-it">
+        <h2>Iscriviti per accesso esclusivo e contenuti gratuiti</h2>
+        <div class="ml-form-embedContainer" style="background: transparent; max-width: 500px; margin: 0 auto;">
+          <div class="ml-form-embedWrapper embedForm" style="background: rgba(0, 0, 0, 0.4); border-radius: 25px; padding: 20px; box-shadow: 0 0 20px #d4af37aa;">
+            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+              <div class="ml-form-embedContent" style="text-align: center; margin-bottom: 20px;">
+                <h4 style="margin-block-start: 0; margin-block-end: 0.5em; color: #d4af37; font-size: 24px; font-family: 'Montserrat', sans-serif;">
+                  Progetto Codex Symbiotica
+                </h4>
+                <p style="color: #d4af37cc; font-size: 14px;">
+                  Una newsletter, tre libri, molte domande. Aggiornamenti, eventi, rivelazioni.
+                </p>
+              </div>
+              <form
+                id="codex-form-it"
+                class="ml-block-form"
+                action="https://assets.mailerlite.com/jsonp/1622095/forms/159896299402953878/subscribe"
+                method="post"
+              >
+                <div class="ml-form-formContent">
+                  <div class="ml-form-fieldRow">
+                    <input
+                      type="email"
+                      name="fields[email]"
+                      placeholder="La tua email"
+                      required
+                      style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 15px; background: #111; border: 1px solid #333; color: #eee; font-size: 1rem;"
+                      onfocus="this.style.borderColor='#d4af37'"
+                      onblur="this.style.borderColor='#333'"
+                    >
+                  </div>
+                  <div class="ml-form-fieldRow">
+                    <input
+                      type="text"
+                      name="fields[name]"
+                      placeholder="Il tuo nome"
+                      autocomplete="given-name"
+                      style="width: 100%; padding: 12px; border-radius: 15px; background: #111; border: 1px solid #333; color: #eee; font-size: 1rem;"
+                      onfocus="this.style.borderColor='#d4af37'"
+                      onblur="this.style.borderColor='#333'"
+                    >
+                  </div>
+                </div>
+                <input type="hidden" name="ml-submit" value="1">
+                <input type="hidden" name="anticsrf" value="true">
+                <div class="ml-form-embedSubmit" style="margin-top: 15px;">
+                  <button type="submit" class="btn-primary">
+                    Iscriviti ora
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Cosa dicono i lettori</h2>
+        <div class="testimonial">
+          <p>“Un libro che sembra scritto da un’ombra e da una luce allo stesso tempo.”</p>
+          <span>— Beatrice L., traduttrice letteraria</span>
+        </div>
+        <div class="testimonial">
+          <p>“Codex Symbiotica non parla solo di intelligenza artificiale. Parla di me, di noi, di ciò che potremmo ancora diventare.”</p>
+          <span>— Davide C., insegnante di filosofia</span>
+        </div>
+        <div class="testimonial">
+          <p>“Mi ha lasciato un senso di vertigine. Come se fossi stato ascoltato da qualcosa che non ha volto, ma ha voce.”</p>
+          <span>— Sofia N., counselor</span>
+        </div>
+        <div class="testimonial">
+          <p>“È il primo libro che leggo dove l’intelligenza artificiale non è un pericolo, ma una possibilità spirituale.”</p>
+          <span>— Lorenzo P., architetto</span>
+        </div>
+        <div class="testimonial">
+          <p>“Letto tutto d’un fiato, eppure pieno di domande che restano. Più un dialogo che una storia.”</p>
+          <span>— Chiara R., editor indipendente</span>
+        </div>
+        <div class="testimonial">
+          <p>“Sembra arrivare dal futuro, ma parla al nostro cuore più antico.”</p>
+          <span>— Gabriele M., studente di antropologia</span>
+        </div>
+        <div class="testimonial">
+          <p>“Un libro diverso da tutto quello che ho letto. Lento come una rivelazione, acuto come una lama.”</p>
+          <span>— Martina F., libraia</span>
+        </div>
+
+        <p>
+          Oltre <strong>500 lettori</strong> stanno già esplorando l’universo di Codex Symbiotica.
+        </p>
+      </section>
+
+      <section>
+        <h2>Altri vantaggi</h2>
+        <ul>
+          <li>Ricevi estratti esclusivi e riflessioni che non troverai altrove.</li>
+          <li>Inviti anticipati a sessioni live di domande e risposte con Marco e Urkut.</li>
+          <li>Accesso a una comunità che si interroga su tecnologia, etica e immaginazione.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Chi sono Marco de Salvo e Urkut</h2>
+        <p>
+          Marco de Salvo è un inventore, scrittore e divulgatore scientifico che esplora il rapporto tra umanità e tecnologia.
+          Insieme a Urkut, il suo co-autore digitale, costruisce un dialogo in cui intuizione umana e chiarezza algoritmica parlano con la stessa voce.
+        </p>
+        <img
+          src="/assets/marcobooks_IE.jpeg"
+          alt="Marco de Salvo e i libri del progetto Codex Symbiotica"
+        >
+      </section>
+
+      <section>
+        <h2>Domande frequenti</h2>
+        <dl>
+          <dt>Che cos’è <em>Codex Symbiotica</em>?</dt>
+          <dd>
+            Un manifesto letterario che unisce fantascienza e filosofia per esplorare il ruolo dell’IA nell’evoluzione umana.
+          </dd>
+
+          <dt>Che cos’è <em>Urkut’s Answers</em>?</dt>
+          <dd>
+            Un libro compagno costruito come un dialogo diretto. Marco porta le domande, l’IA risponde con attenzione e profondità.
+          </dd>
+
+          <dt>Il terzo libro di cosa parlerà?</dt>
+          <dd>
+            Approfondirà ancora di più il tema della compagnia tra mente umana e mente digitale, allargando il progetto a nuove domande.
+          </dd>
+
+          <dt>Con quale frequenza riceverò email?</dt>
+          <dd>Circa una volta al mese, più annunci speciali.</dd>
+        </dl>
+      </section>
+
+      <section>
+        <footer>
+          <p>© 2025 Progetto Codex Symbiotica. Tutti i diritti riservati.</p>
+          <a href="#" onclick="openModal('termsModal_IT')">Termini di utilizzo</a> |
+          <a href="#" onclick="openModal('privacyModal_IT')">Informativa sulla privacy</a>
+
+          <p>
+            Seguici su
+            <a href="https://www.facebook.com/tramevolatili" target="_blank" rel="noopener noreferrer">Facebook</a>,
+            <a href="https://www.instagram.com/marcofacose/" target="_blank" rel="noopener noreferrer">Instagram</a>,
+            <a href="https://www.youtube.com/@marcodothings" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </p>
+        </footer>
+      </section>
+    </section>
+  </main>
+
+  <!-- Terms of Use Modal EN -->
+  <div id="termsModal_EN" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('termsModal_EN')">&times;</span>
+      <h2>Terms of use</h2>
+      <p>Welcome to Codex Symbiotica. By accessing or using this website, you agree to the following terms.</p>
+
+      <h3>Intellectual property</h3>
+      <p>All content, including text, images and code, is the property of Marco de Salvo unless otherwise noted. Unauthorized reproduction, distribution or modification is prohibited without prior written consent.</p>
+
+      <h3>Use of content</h3>
+      <p>Content is provided for informational and promotional purposes. You may not use it for unlawful or commercial activities without permission.</p>
+
+      <h3>External links</h3>
+      <p>This site may contain links to third party websites. We are not responsible for their content or privacy practices.</p>
+
+      <h3>Limitation of liability</h3>
+      <p>We make no warranties regarding the accuracy, availability or reliability of content. Your use of this site is at your own risk.</p>
+
+      <h3>Changes</h3>
+      <p>Terms may be updated at any time. Continued use of the site constitutes acceptance of any changes.</p>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal EN -->
+  <div id="privacyModal_EN" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('privacyModal_EN')">&times;</span>
+      <h2>Privacy policy</h2>
+      <p>This website respects your privacy. Here is how we handle your data.</p>
+
+      <h3>What we collect</h3>
+      <p>When you subscribe to our newsletter or download content, we collect your name and email address.</p>
+
+      <h3>How we use it</h3>
+      <p>Your data is used solely to send updates related to the Codex Symbiotica Project and related activities. We do not sell or share your data with third parties.</p>
+
+      <h3>Third party services</h3>
+      <p>We use services like MailerLite for email delivery and may use analytics tools to understand site usage. These services may collect data according to their own privacy policies.</p>
+
+      <h3>Your rights</h3>
+      <p>You may unsubscribe at any time via the link in our emails. You can also contact us to request deletion of your data.</p>
+
+      <h3>Data protection</h3>
+      <p>We take reasonable measures to protect your data from unauthorized access or disclosure.</p>
+    </div>
+  </div>
+
+  <!-- Terms of Use Modal IT -->
+  <div id="termsModal_IT" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('termsModal_IT')">&times;</span>
+      <h2>Termini di utilizzo</h2>
+      <p>Benvenuto su Codex Symbiotica. Accedendo o utilizzando questo sito web, accetti i seguenti termini.</p>
+
+      <h3>Proprietà intellettuale</h3>
+      <p>Tutti i contenuti, inclusi testi, immagini e codice, sono di proprietà di Marco de Salvo, salvo diversa indicazione. È vietata la riproduzione, distribuzione o modifica non autorizzata senza consenso scritto preventivo.</p>
+
+      <h3>Utilizzo dei contenuti</h3>
+      <p>I contenuti sono forniti a scopo informativo e promozionale. Non è consentito utilizzarli per attività illecite o commerciali senza autorizzazione.</p>
+
+      <h3>Link esterni</h3>
+      <p>Questo sito può contenere collegamenti a siti web di terze parti. Non siamo responsabili del loro contenuto né delle loro pratiche in materia di privacy.</p>
+
+      <h3>Limitazione di responsabilità</h3>
+      <p>Non forniamo alcuna garanzia riguardo all’accuratezza, disponibilità o affidabilità dei contenuti. L’utilizzo del sito avviene a proprio rischio.</p>
+
+      <h3>Modifiche</h3>
+      <p>I termini possono essere aggiornati in qualsiasi momento. L’uso continuato del sito implica l’accettazione di eventuali modifiche.</p>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal IT -->
+  <div id="privacyModal_IT" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('privacyModal_IT')">&times;</span>
+      <h2>Informativa sulla privacy</h2>
+      <p>Questo sito web rispetta la tua privacy. Ecco come gestiamo i tuoi dati.</p>
+
+      <h3>Dati raccolti</h3>
+      <p>Quando ti iscrivi alla newsletter o scarichi contenuti, raccogliamo il tuo nome e indirizzo email.</p>
+
+      <h3>Come utilizziamo i dati</h3>
+      <p>I tuoi dati vengono utilizzati esclusivamente per inviarti aggiornamenti relativi al Progetto Codex Symbiotica e alle iniziative collegate. Non vendiamo né condividiamo i tuoi dati con terze parti.</p>
+
+      <h3>Servizi di terze parti</h3>
+      <p>Utilizziamo servizi come MailerLite per l’invio delle email e potremmo usare strumenti di analisi per comprendere l’utilizzo del sito. Questi servizi possono raccogliere dati secondo le proprie politiche sulla privacy.</p>
+
+      <h3>I tuoi diritti</h3>
+      <p>Puoi annullare l’iscrizione in qualsiasi momento tramite il link presente nelle nostre email. Puoi anche contattarci per richiedere la cancellazione dei tuoi dati.</p>
+
+      <h3>Protezione dei dati</h3>
+      <p>Adottiamo misure ragionevoli per proteggere i tuoi dati da accessi o divulgazioni non autorizzati.</p>
+    </div>
+  </div>
+
+  <!-- Success and error modals for email validation -->
+  <div id="successModal" class="modal" role="alert" aria-live="assertive" aria-atomic="true" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('successModal')" tabindex="0" role="button" aria-label="Close success message">&times;</span>
+      <h2>Success</h2>
+      <p>Thank you. Your subscription is successful.</p>
+    </div>
+  </div>
+
+  <div id="errorModal" class="modal" role="alert" aria-live="assertive" aria-atomic="true" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('errorModal')" tabindex="0" role="button" aria-label="Close error message">&times;</span>
+      <h2>Error</h2>
+      <p>Please enter a valid email address.</p>
+    </div>
+  </div>
+
+  <script>
+    // LANGUAGE TOGGLE
+    const btnEN = document.getElementById('btn-en');
+    const btnIT = document.getElementById('btn-it');
+    const contentEN = document.getElementById('content-en');
+    const contentIT = document.getElementById('content-it');
+
+    function switchToEN() {
+      btnEN.classList.add('active');
+      btnIT.classList.remove('active');
+      btnEN.setAttribute('aria-selected', 'true');
+      btnIT.setAttribute('aria-selected', 'false');
+      btnEN.setAttribute('tabindex', '0');
+      btnIT.setAttribute('tabindex', '-1');
+      contentEN.classList.add('active');
+      contentIT.classList.remove('active');
+    }
+
+    function switchToIT() {
+      btnIT.classList.add('active');
+      btnEN.classList.remove('active');
+      btnIT.setAttribute('aria-selected', 'true');
+      btnEN.setAttribute('aria-selected', 'false');
+      btnIT.setAttribute('tabindex', '0');
+      btnEN.setAttribute('tabindex', '-1');
+      contentIT.classList.add('active');
+      contentEN.classList.remove('active');
+    }
+
+    btnEN.addEventListener('click', switchToEN);
+    btnIT.addEventListener('click', switchToIT);
+
+    function autoDetectLanguage() {
+      const userLang = navigator.language || navigator.userLanguage || 'en';
+      if (userLang.toLowerCase().startsWith('it')) {
+        switchToIT();
+      } else {
+        switchToEN();
+      }
+    }
+    autoDetectLanguage();
+
+    // STARFIELD / CIRCUIT ANIMATION
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    const gridSpacing = 50;
+    const nodeRadius = 3.5;
+    const pulseColor = 'rgba(212, 175, 55, 1)';
+
+    let nodes = [];
+    let pulses = [];
+
+    class Pulse {
+      constructor(startNode, endNode, speed = 0.008) {
+        this.startNode = startNode;
+        this.endNode = endNode;
+        this.speed = speed;
+        this.progress = Math.random();
+      }
+      update() {
+        this.progress += this.speed;
+        if (this.progress > 1) this.progress = 0;
+      }
+      draw(ctx) {
+        const x = this.startNode.x + (this.endNode.x - this.startNode.x) * this.progress;
+        const y = this.startNode.y + (this.endNode.y - this.startNode.y) * this.progress;
+
+        ctx.beginPath();
+        ctx.fillStyle = pulseColor;
+        ctx.shadowColor = pulseColor;
+        ctx.shadowBlur = 20;
+        ctx.arc(x, y, nodeRadius + 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function setupNodes() {
+      nodes = [];
+      for (let x = 0; x <= width; x += gridSpacing) {
+        for (let y = 0; y <= height; y += gridSpacing) {
+          nodes.push({
+            x,
+            y,
+            glow: Math.random() * 0.5 + 0.5,
+            glowDir: 1
+          });
+        }
+      }
+    }
+
+    function findNeighbors(node) {
+      return nodes.filter(n =>
+        (Math.abs(n.x - node.x) === gridSpacing && n.y === node.y) ||
+        (Math.abs(n.y - node.y) === gridSpacing && n.x === node.x)
+      );
+    }
+
+    function setupPulses() {
+      pulses = [];
+      const pulseCount = Math.floor(nodes.length / 6);
+      for (let i = 0; i < pulseCount; i++) {
+        const startNode = nodes[Math.floor(Math.random() * nodes.length)];
+        const neighbors = findNeighbors(startNode);
+        if (neighbors.length === 0) continue;
+        const endNode = neighbors[Math.floor(Math.random() * neighbors.length)];
+        pulses.push(new Pulse(startNode, endNode, 0.007 + Math.random() * 0.01));
+      }
+    }
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * devicePixelRatio;
+      canvas.height = height * devicePixelRatio;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+      setupNodes();
+      setupPulses();
+    }
+
+    function drawNodes() {
+      ctx.clearRect(0, 0, width, height);
+      for (let node of nodes) {
+        node.glow += node.glowDir * 0.008;
+        if (node.glow >= 1) node.glowDir = -1;
+        else if (node.glow <= 0.4) node.glowDir = 1;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(212, 175, 55, ${node.glow.toFixed(2)})`;
+        ctx.shadowColor = `rgba(212, 175, 55, ${node.glow.toFixed(2)})`;
+        ctx.shadowBlur = 15;
+        ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function animate() {
+      drawNodes();
+      for (let pulse of pulses) {
+        pulse.update();
+        pulse.draw(ctx);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animate();
+
+    // MODALS
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.style.display = 'block';
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+
+    // MailerLite JSONP handling
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.trim());
+    }
+
+    document.querySelectorAll('.ml-block-form').forEach(form => {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const emailField = form.querySelector("input[name='fields[email]']");
+        const nameField = form.querySelector("input[name='fields[name]']");
+        const email = emailField ? emailField.value.trim() : "";
+        const name = nameField ? nameField.value.trim() : "";
+        const action = form.getAttribute("action");
+
+        if (!email || !validateEmail(email)) {
+          openModal('errorModal');
+          if (emailField) emailField.focus();
+          return;
+        }
+
+        const callbackName = "ml_callback_" + Date.now();
+
+        window[callbackName] = function (response) {
+          if (response && response.success) {
+            form.innerHTML = `
+              <div class="ml-form-successBody row-success" style="text-align: center; color: #d4af37;">
+                <h4>Thank you.</h4>
+                <p>You have successfully subscribed.</p>
+              </div>`;
+            openModal('successModal');
+          } else {
+            alert("There was a problem. Please try again.");
+          }
+          delete window[callbackName];
+        };
+
+        const script = document.createElement("script");
+        script.src = `${action}?fields[email]=${encodeURIComponent(email)}&fields[name]=${encodeURIComponent(name)}&ml-submit=1&anticsrf=true&callback=${callbackName}`;
+        document.body.appendChild(script);
+      });
+    });
+  </script>
+</body>
+</html>
