@@ -147,17 +147,16 @@ third book Codex Symbiotica project
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Background canvas */
-
+/* Background canvas */
 #starfield {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: 0;
-  background: radial-gradient(circle at top, #00142a 0%, #000814 40%, #00020a 100%);
+  background: transparent; /* body already has the dark navy background */
+  pointer-events: none;
 }
-
 
     /* Main container */
     .container {
@@ -1314,117 +1313,73 @@ third book Codex Symbiotica project
 
 
 
-
- // NEW CIRCUIT BACKGROUND ANIMATION
+// LIGHTWEIGHT CIRCUIT GLIMMER (CPU friendly)
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
-let width, height;
 
-const gridSpacing = 80;           // base distance between nodes
-const nodeRadius = 3.2;
-const baseNodeAlpha = 0.45;
-const lineBaseAlpha = 0.22;
-const pulseColor = 'rgba(212, 175, 55, 1)';
+let width = 0;
+let height = 0;
+let dpr = 1;
 
 let nodes = [];
 let edges = [];
-let pulses = [];
 
-// Small helper for random jitter
-function randInRange(min, max) {
-  return min + Math.random() * (max - min);
-}
-
-// Node: jittered grid point
 class Node {
   constructor(x, y) {
-    this.baseX = x;
-    this.baseY = y;
-    this.x = x + randInRange(-7, 7);
-    this.y = y + randInRange(-7, 7);
-    this.glowPhase = Math.random() * Math.PI * 2;
-    this.glowSpeed = 0.002 + Math.random() * 0.002;
+    this.x = x + (Math.random() - 0.5) * 10;   // slight jitter
+    this.y = y + (Math.random() - 0.5) * 10;
+    this.phase = Math.random() * Math.PI * 2;
+    this.speed = 0.0007 + Math.random() * 0.0008;
   }
 
   update(delta) {
-    this.glowPhase += this.glowSpeed * delta;
+    this.phase += this.speed * delta;
   }
 
-  getGlowAlpha() {
-    const pulse = (Math.sin(this.glowPhase) + 1) / 2;
-    return baseNodeAlpha + pulse * 0.35;
+  getAlpha() {
+    const t = (Math.sin(this.phase) + 1) / 2; // 0..1
+    return 0.25 + t * 0.25;                  // 0.25..0.5
   }
 }
 
-// Edge: connection between two nodes
 class Edge {
   constructor(a, b) {
     this.a = a;
     this.b = b;
-    this.glowPhase = Math.random() * Math.PI * 2;
-    this.glowSpeed = 0.001 + Math.random() * 0.0015;
-  }
-
-  update(delta) {
-    this.glowPhase += this.glowSpeed * delta;
-  }
-
-  getGlowAlpha() {
-    const pulse = (Math.sin(this.glowPhase) + 1) / 2;
-    return lineBaseAlpha + pulse * 0.15;
   }
 }
 
-// Pulse: small bright dot moving along an edge
-class Pulse {
-  constructor(edge, speed) {
-    this.edge = edge;
-    this.speed = speed;
-    this.t = Math.random();
-  }
-
-  update(delta) {
-    this.t += this.speed * delta;
-    if (this.t > 1) this.t = 0;
-  }
-
-  draw(ctx) {
-    const { a, b } = this.edge;
-    const x = a.x + (b.x - a.x) * this.t;
-    const y = a.y + (b.y - a.y) * this.t;
-
-    ctx.beginPath();
-    ctx.fillStyle = pulseColor;
-    ctx.shadowColor = pulseColor;
-    ctx.shadowBlur = 18;
-    ctx.arc(x, y, nodeRadius + 1.6, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function setupNodesAndEdges() {
+function setupScene() {
   nodes = [];
   edges = [];
 
-  for (let x = gridSpacing / 2; x <= width; x += gridSpacing) {
-    for (let y = gridSpacing / 2; y <= height; y += gridSpacing) {
-      nodes.push(new Node(x, y));
+  // Small logical grid, always lightweight
+  const cols = Math.max(8, Math.round(width / 200));
+  const rows = Math.max(5, Math.round(height / 160));
+  const dx = width / (cols + 1);
+  const dy = height / (rows + 1);
+
+  const grid = [];
+
+  for (let gy = 0; gy < rows; gy++) {
+    for (let gx = 0; gx < cols; gx++) {
+      const x = dx * (gx + 1);
+      const y = dy * (gy + 1);
+      const node = new Node(x, y);
+      nodes.push(node);
+      grid.push(node);
     }
   }
 
-  const getIndex = (gx, gy) => gy * Math.ceil(width / gridSpacing) + gx;
-  const cols = Math.ceil(width / gridSpacing);
-  const rows = Math.ceil(height / gridSpacing);
-
-  // Create connections in a relaxed grid
-  for (let gx = 0; gx < cols; gx++) {
-    for (let gy = 0; gy < rows; gy++) {
+  // Simple horizontal/vertical connections
+  for (let gy = 0; gy < rows; gy++) {
+    for (let gx = 0; gx < cols; gx++) {
       const idx = gy * cols + gx;
-      const node = nodes[idx];
+      const node = grid[idx];
       if (!node) continue;
 
-      const right = nodes[gy * cols + (gx + 1)];
-      const down = nodes[(gy + 1) * cols + gx];
+      const right = grid[gy * cols + (gx + 1)];
+      const down = grid[(gy + 1) * cols + gx];
 
       if (right && Math.random() < 0.9) {
         edges.push(new Edge(node, right));
@@ -1436,103 +1391,63 @@ function setupNodesAndEdges() {
   }
 }
 
-function setupPulses() {
-  pulses = [];
-  const pulseCount = Math.max(8, Math.floor(edges.length / 20));
-
-  for (let i = 0; i < pulseCount; i++) {
-    const edge = edges[Math.floor(Math.random() * edges.length)];
-    if (!edge) continue;
-    const speed = 0.0003 + Math.random() * 0.0007;
-    pulses.push(new Pulse(edge, speed));
-  }
-}
-
 function resizeCanvas() {
   width = window.innerWidth;
   height = window.innerHeight;
-  canvas.width = width * devicePixelRatio;
-  canvas.height = height * devicePixelRatio;
+
+  dpr = Math.min(window.devicePixelRatio || 1, 1.5); // avoid 3x scaling on Retina
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
   canvas.style.width = width + 'px';
   canvas.style.height = height + 'px';
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.scale(devicePixelRatio, devicePixelRatio);
 
-  setupNodesAndEdges();
-  setupPulses();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+
+  setupScene();
 }
 
 let lastTime = performance.now();
 
-function drawBackground() {
-  const gradient = ctx.createRadialGradient(
-    width * 0.5, height * 0.1, 0,
-    width * 0.5, height * 0.5, Math.max(width, height)
-  );
-  gradient.addColorStop(0, 'rgba(0, 40, 80, 0.35)');
-  gradient.addColorStop(0.4, 'rgba(0, 12, 36, 0.6)');
-  gradient.addColorStop(1, 'rgba(0, 2, 10, 0.95)');
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-}
-
-function drawEdges() {
-  ctx.lineWidth = 1;
-  ctx.lineCap = 'round';
-
-  for (const edge of edges) {
-    const alpha = edge.getGlowAlpha();
-    ctx.beginPath();
-    ctx.strokeStyle = `rgba(212, 175, 55, ${alpha})`;
-    ctx.shadowColor = `rgba(212, 175, 55, ${alpha * 1.5})`;
-    ctx.shadowBlur = 10;
-    ctx.moveTo(edge.a.x, edge.a.y);
-    ctx.lineTo(edge.b.x, edge.b.y);
-    ctx.stroke();
-  }
-}
-
-function drawNodes() {
-  for (const node of nodes) {
-    const alpha = node.getGlowAlpha();
-    ctx.beginPath();
-    ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
-    ctx.shadowColor = `rgba(212, 175, 55, ${alpha * 2})`;
-    ctx.shadowBlur = 18;
-    ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function animateCircuit(time) {
+function render(time) {
   const delta = time - lastTime;
   lastTime = time;
 
-  drawBackground();
+  ctx.clearRect(0, 0, width, height);
 
+  // Update node phases
   for (const node of nodes) {
     node.update(delta);
   }
+
+  // Draw edges first (very faint)
+  ctx.lineWidth = 1;
+  ctx.lineCap = 'round';
   for (const edge of edges) {
-    edge.update(delta);
-  }
-  for (const pulse of pulses) {
-    pulse.update(delta);
-  }
-
-  drawEdges();
-  drawNodes();
-  for (const pulse of pulses) {
-    pulse.draw(ctx);
+    const a = edge.a;
+    const b = edge.b;
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.18)';
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.stroke();
   }
 
-  requestAnimationFrame(animateCircuit);
+  // Draw nodes on top (soft glow, but no heavy shadows)
+  for (const node of nodes) {
+    const alpha = node.getAlpha();
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
+    ctx.arc(node.x, node.y, 2.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(render);
 }
 
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
-requestAnimationFrame(animateCircuit);
+requestAnimationFrame(render);
 
 
     // MODALS
