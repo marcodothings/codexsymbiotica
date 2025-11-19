@@ -1312,7 +1312,7 @@ third book Codex Symbiotica project
 
 
 
-// ELEGANT CIRCUIT ANIMATION (balanced performance)
+// CIRCUIT UNIVERSE ANIMATION (optimized, full-screen)
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
 
@@ -1320,65 +1320,59 @@ let width = 0;
 let height = 0;
 let dpr = 1;
 
+const GRID_SPACING = 70;      // smaller = denser, bigger = lighter
+const NODE_RADIUS = 3;
+const PULSE_DENSITY = 0.18;   // pulses = nodes.length * this
+
 let nodes = [];
-let edges = [];
 let pulses = [];
 
-// PARAMETERS: tune here if needed
-const NODE_COUNT_TARGET = 60;     // how many points in the network
-const PULSE_COUNT_TARGET = 10;    // how many moving pulses
-const NODE_RADIUS = 2.6;
-
-// Node in the circuit
+// Node in the grid
 class Node {
   constructor(x, y) {
-    this.x = x + (Math.random() - 0.5) * 16;   // slight jitter
-    this.y = y + (Math.random() - 0.5) * 16;
-    this.phase = Math.random() * Math.PI * 2;
-    this.speed = 0.0008 + Math.random() * 0.0012;
+    this.x = x;
+    this.y = y;
+    this.glow = Math.random() * 0.5 + 0.5;
+    this.glowDir = Math.random() > 0.5 ? 1 : -1;
+    this.phaseSpeed = 0.001 + Math.random() * 0.001;
+    this.neighbors = []; // filled after all nodes are created
   }
 
   update(delta) {
-    this.phase += this.speed * delta;
+    // simple breathing glow
+    this.glow += this.glowDir * this.phaseSpeed * delta;
+    if (this.glow >= 1) this.glowDir = -1;
+    else if (this.glow <= 0.4) this.glowDir = 1;
   }
 
   getAlpha() {
-    const t = (Math.sin(this.phase) + 1) / 2; // 0..1
-    return 0.3 + t * 0.35;                   // 0.3..0.65
+    return this.glow;
   }
 }
 
-// Edge linking two nodes
-class Edge {
-  constructor(a, b) {
-    this.a = a;
-    this.b = b;
-  }
-}
-
-// Pulse moving along an edge
+// Pulse travelling along a connection between nodes
 class Pulse {
-  constructor(edge, speed) {
-    this.edge = edge;
+  constructor(startNode, endNode, speed) {
+    this.startNode = startNode;
+    this.endNode = endNode;
     this.speed = speed;
-    this.t = Math.random(); // position 0..1
+    this.progress = Math.random(); // 0..1
   }
 
   update(delta) {
-    this.t += this.speed * delta;
-    if (this.t > 1) {
-      this.t -= 1;
+    this.progress += this.speed * delta;
+    if (this.progress > 1) {
+      this.progress -= 1;
     }
   }
 
   draw(ctx) {
-    const { a, b } = this.edge;
-    const x = a.x + (b.x - a.x) * this.t;
-    const y = a.y + (b.y - a.y) * this.t;
+    const x = this.startNode.x + (this.endNode.x - this.startNode.x) * this.progress;
+    const y = this.startNode.y + (this.endNode.y - this.startNode.y) * this.progress;
 
     ctx.beginPath();
     ctx.fillStyle = 'rgba(212, 175, 55, 0.95)';
-    ctx.arc(x, y, NODE_RADIUS + 1.6, 0, Math.PI * 2);
+    ctx.arc(x, y, NODE_RADIUS + 1.5, 0, Math.PI * 2);
     ctx.fill();
   }
 }
@@ -1387,7 +1381,7 @@ function resizeCanvas() {
   width = window.innerWidth;
   height = window.innerHeight;
 
-  dpr = Math.min(window.devicePixelRatio || 1, 1.5); // cap to avoid heavy scaling
+  dpr = Math.min(window.devicePixelRatio || 1, 1.5); // cap for performance
   canvas.width = width * dpr;
   canvas.height = height * dpr;
   canvas.style.width = width + 'px';
@@ -1396,80 +1390,53 @@ function resizeCanvas() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 
-  setupScene();
+  setupNodes();
+  setupNeighbors();
+  setupPulses();
 }
 
-function setupScene() {
+// Create a full-screen grid of nodes (slightly extended beyond edges)
+function setupNodes() {
   nodes = [];
-  edges = [];
-  pulses = [];
-
-  // 1. Distribute nodes in a loose grid, then reduce to NODE_COUNT_TARGET
-  const cols = Math.max(8, Math.round(width / 200));
-  const rows = Math.max(5, Math.round(height / 180));
-  const dx = width / (cols + 1);
-  const dy = height / (rows + 1);
-
-  for (let gy = 0; gy < rows; gy++) {
-    for (let gx = 0; gx < cols; gx++) {
-      nodes.push(new Node(dx * (gx + 1), dy * (gy + 1)));
+  for (let x = -GRID_SPACING; x <= width + GRID_SPACING; x += GRID_SPACING) {
+    for (let y = -GRID_SPACING; y <= height + GRID_SPACING; y += GRID_SPACING) {
+      nodes.push(new Node(x, y));
     }
   }
+}
 
-  // If too many nodes, randomly downsample to the target
-  if (nodes.length > NODE_COUNT_TARGET) {
-    nodes = shuffle(nodes).slice(0, NODE_COUNT_TARGET);
-  }
-
-  // 2. Build edges by connecting each node to its nearest neighbors
-  const neighborCount = 3; // how many neighbors per node
-  for (let i = 0; i < nodes.length; i++) {
+// Precompute neighbors (direct horizontal and vertical, at GRID_SPACING)
+function setupNeighbors() {
+  const n = nodes.length;
+  for (let i = 0; i < n; i++) {
     const node = nodes[i];
-
-    const distances = [];
-    for (let j = 0; j < nodes.length; j++) {
+    node.neighbors = [];
+    for (let j = 0; j < n; j++) {
       if (i === j) continue;
       const other = nodes[j];
-      const dx = node.x - other.x;
-      const dy = node.y - other.y;
-      const dist2 = dx * dx + dy * dy;
-      distances.push({ node: other, dist2 });
-    }
-
-    distances.sort((a, b) => a.dist2 - b.dist2);
-    const neighbors = distances.slice(0, neighborCount);
-
-    for (const n of neighbors) {
-      if (!edgeExists(node, n.node)) {
-        edges.push(new Edge(node, n.node));
+      const dx = other.x - node.x;
+      const dy = other.y - node.y;
+      const isHorizontal = Math.abs(dx) === GRID_SPACING && dy === 0;
+      const isVertical = Math.abs(dy) === GRID_SPACING && dx === 0;
+      if (isHorizontal || isVertical) {
+        node.neighbors.push(other);
       }
     }
   }
+}
 
-  // 3. Create pulses on a subset of edges
-  const usableEdges = edges.slice();
-  shuffle(usableEdges);
+// Create pulses across random neighbor connections
+function setupPulses() {
+  pulses = [];
+  const pulseCount = Math.max(10, Math.floor(nodes.length * PULSE_DENSITY));
 
-  const pulseCount = Math.min(PULSE_COUNT_TARGET, usableEdges.length);
   for (let i = 0; i < pulseCount; i++) {
-    const edge = usableEdges[i];
-    const speed = 0.0004 + Math.random() * 0.0009; // tune speed here
-    pulses.push(new Pulse(edge, speed));
+    const startNode = nodes[Math.floor(Math.random() * nodes.length)];
+    if (!startNode.neighbors || startNode.neighbors.length === 0) continue;
+    const endNode = startNode.neighbors[Math.floor(Math.random() * startNode.neighbors.length)];
+    const speed = 0.0005 + Math.random() * 0.001; // tune speed here
+    pulses.push(new Pulse(startNode, endNode, speed));
   }
-}
-
-function edgeExists(a, b) {
-  return edges.some(e =>
-    (e.a === a && e.b === b) || (e.a === b && e.b === a)
-  );
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
 }
 
 let lastTime = performance.now();
@@ -1480,7 +1447,7 @@ function render(time) {
 
   ctx.clearRect(0, 0, width, height);
 
-  // Update node phases and pulses
+  // Update nodes and pulses
   for (const node of nodes) {
     node.update(delta);
   }
@@ -1488,18 +1455,24 @@ function render(time) {
     pulse.update(delta);
   }
 
-  // Draw edges first (faint)
+  // Draw faint circuit lines
   ctx.lineWidth = 1;
   ctx.lineCap = 'round';
-  for (const edge of edges) {
-    ctx.beginPath();
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.18)';
-    ctx.moveTo(edge.a.x, edge.a.y);
-    ctx.lineTo(edge.b.x, edge.b.y);
-    ctx.stroke();
+  ctx.strokeStyle = 'rgba(212, 175, 55, 0.22)';
+  for (const node of nodes) {
+    if (!node.neighbors) continue;
+    for (const neighbor of node.neighbors) {
+      // draw each segment once by ordering
+      if (neighbor.x > node.x || neighbor.y > node.y) {
+        ctx.beginPath();
+        ctx.moveTo(node.x, node.y);
+        ctx.lineTo(neighbor.x, neighbor.y);
+        ctx.stroke();
+      }
+    }
   }
 
-  // Draw nodes (small glow through alpha only)
+  // Draw nodes (soft glow through alpha, no heavy blur)
   for (const node of nodes) {
     const alpha = node.getAlpha();
     ctx.beginPath();
